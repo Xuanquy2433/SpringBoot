@@ -14,7 +14,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8" />
@@ -62,10 +62,18 @@
                     <li class="active ">
                         <a th:href="@{/dashboard/accounts}">
                             <i class="tim-icons icon-single-02"></i>
-                          <p>Accounts</p>
+                            <p>Accounts</p>
                         </a>
-                      </li>
-                    <li >
+                    </li>
+
+                    <li>
+                        <a th:href="@{/dashboard/roles}">
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Roles</p>
+                        </a>
+                    </li>
+
+                    <li>
                         <a th:href="@{/dashboard/categories}">
                             <i class="tim-icons icon-puzzle-10"></i>
                             <p>Categories</p>
@@ -183,7 +191,7 @@
                                 <h5 class="title">Create Accounts</h5>
                             </div>
                             <div class="card-body">
-                                <form th:action="@{/dashboard/accounts/create}" th:object="${accounts}" method="post">
+                                <form th:action="@{/dashboard/accounts/create}" th:object="${accountss}" method="post">
                                     <div class="row">
                                         <div class="col-md-5 pr-md-1">
                                             <div class="form-group">
@@ -203,42 +211,54 @@
                                                     required</span>
                                             </div>
                                         </div>
-                                        <!-- <div class="col-md-4 pl-md-1">
+                                        <div class="col-md-4 pl-md-1">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" class="form-control" placeholder="mike@email.com">
+                                                <input type="email" th:field="*{email}" class="form-control"
+                                                    placeholder="mike@email.com">
+                                                <span class="error" th:if="${#fields.hasErrors('password')}">Email is
+                                                    required</span>
                                             </div>
-                                        </div> -->
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-6 pr-md-1">
                                             <div class="form-group">
-                                                <label>Role</label>
-                                                <input type="text" class="form-control" placeholder="Company"
-                                                    th:field="*{role}">
-                                                <span class="error" th:if="${#fields.hasErrors('role')}">Role is
+                                                <label>Full Name</label>
+                                                <input type="text" class="form-control" placeholder="Full Name"
+                                                    th:field="*{fullName}">
+                                                <span class="error" th:if="${#fields.hasErrors('fullName')}">Full name
+                                                    is
                                                     required</span>
                                             </div>
                                         </div>
-                                        <!-- <div class="col-md-6 pl-md-1">
+                                        <div class="col-md-6 pl-md-1">
                                             <div class="form-group">
-                                                <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="Last Name"
-                                                    value="Andrew">
+                                                <label>Photo</label>
+                                                <input type="text" th:field="*{photo}" class="form-control"
+                                                    placeholder="Photo">
+                                                <span class="error" th:if="${#fields.hasErrors('photo')}">Photo is
+                                                    required</span>
                                             </div>
-                                        </div> -->
+                                        </div>
                                     </div>
-                                    <!-- <div class="row">
-                                        <div class="col-md-12">
+
+                                    <div class="row">
+                                        <div class="col-md-6 pr-md-1">
                                             <div class="form-group">
-                                                <label>Image</label>
-                                                <input type="text" class="form-control" 
-                                                    placeholder="Enter image">
-                                                <span class="error" th:if="${#fields.hasErrors('image')}">Image is
-                                                    required</span>
+                                                <label>Activated</label>
+                                                <input style="width: 20px;" type="checkbox" th:field="*{activated}"
+                                                    name="activated" th:checked="${activated}" />
                                             </div>
                                         </div>
-                                    </div> -->
+                                        <div class="col-md-6 pl-md-1">
+                                            <div class="form-group">
+                                                <label>Admin</label>
+                                                <input style="width: 20px;" type="checkbox" th:field="*{admin}"
+                                                    name="admin" th:checked="${admin}" />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- <div class="row">
                                         <div class="col-md-4 pr-md-1">
                                             <div class="form-group">

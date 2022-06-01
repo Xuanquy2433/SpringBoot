@@ -62,9 +62,16 @@
                     <li>
                         <a th:href="@{/dashboard/accounts}">
                             <i class="tim-icons icon-single-02"></i>
-                          <p>Accounts</p>
+                            <p>Accounts</p>
                         </a>
-                      </li>
+                    </li>
+                    <li>
+                        <a th:href="@{/dashboard/roles}">
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Roles</p>
+                        </a>
+                    </li>
+
                     <li>
                         <a th:href="@{/dashboard/categories}">
                             <i class="tim-icons icon-puzzle-10"></i>
@@ -209,8 +216,8 @@
                                                 <select style="color: #A9A59F;" name="categoryId" class="form-control"
                                                     aria-label=".form-select-sm example">
                                                     <option selected>Choose Category</option>
-                                                    <option th:field="*{categoryId}" th:each="items : ${listCategorys}" th:value="${items}"
-                                                        th:text="${items}">One</option>
+                                                    <option th:field="*{categoryId}" th:each="items : ${listCategorys}"
+                                                        th:value="${items}" th:text="${items}">One</option>
 
                                                 </select>
                                             </div>
@@ -224,7 +231,7 @@
                                                     th:field="*{id}">
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -271,7 +278,8 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button  onclick="demo.showNotification('bottom','right')" type="submit" class="btn btn-fill btn-primary">Save</button>
+                                        <button onclick="demo.showNotification('bottom','right')" type="submit"
+                                            class="btn btn-fill btn-primary">Save</button>
                                     </div>
                                 </form>
                             </div>

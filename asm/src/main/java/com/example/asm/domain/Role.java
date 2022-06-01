@@ -1,5 +1,6 @@
 package com.example.asm.domain;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,14 +17,13 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 50, nullable = false)
-    private String roleId;
+    private int roleId;
     @Column(length = 200, nullable = false)
     private String name;
-    
-    @OneToMany(mappedBy = "role",
-            cascade = {CascadeType.ALL})
-    Set<Account> accounts;
+
+   
 }

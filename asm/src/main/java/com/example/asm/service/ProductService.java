@@ -1,170 +1,82 @@
 package com.example.asm.service;
 
-import java.util.ArrayList;
+import com.example.asm.domain.Products;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
 
-import com.example.asm.dto.Category;
-import com.example.asm.dto.Product;
+public interface ProductService {
 
-import org.springframework.stereotype.Service;
+    long count();
 
-@Service
-public class ProductService {
-        List<Product> list = new ArrayList<Product>();
+    <S extends Products> long count(Example<S> example);
 
-        public void setList(List<Product> list) {
-                this.list = list;
-        }
+    void delete(Products entity);
 
-        public ProductService() {
-                list.add(new Product(1, "Oppo A71",
-                                "https://thaymatkinhdanang.vn/wp-content/uploads/2018/05/thay-mat-kinh-oppo-a71.jpg",
-                                "3000000", "no", 1));
-                list.add(new Product(2, "Samsung A20",
-                                "https://cdn.tgdd.vn/Products/Images/42/198792/samsung-galaxy-a20-red-600x600-1-600x600.jpg",
-                                "3000000", "no", 2));
-                list.add(new Product(3, "Iphone 10",
-                                "https://cdn.tgdd.vn/Products/Images/42/114115/iphone-x-64gb-hh-600x600.jpg",
-                                "3000000", "no", 3));
-                list.add(new Product(4, "Xiaomi black shark",
-                                "https://cdn.tgdd.vn/Products/Images/42/217844/xiaomi-black-shark-3-600x600-2-600x600.jpg",
-                                "3000000", "no", 4));
-                list.add(new Product(5, "Vsmart",
-                                "https://cdn.cellphones.com.vn/media/catalog/product/cache/7/thumbnail/9df78eab33525d08d6e5fb8d27136e95/v/s/vsmart-joy-4_2_.png",
-                                "3000000", "no", 5));
+    void deleteAll();
 
-        }
+    void deleteAll(Iterable<? extends Products> entities);
 
-        public List<Product> getListProduct() {
-                return this.list;
-        }
+    void deleteAllById(Iterable<? extends Integer> ids);
 
-        public List<String> getListNameCategory() {
+    void deleteAllByIdInBatch(Iterable<Integer> ids);
 
-                List<String> list = new ArrayList<String>();
-                CategoryService service = new CategoryService();
+    void deleteAllInBatch();
 
-                for (Category name : service.getListCategory()) {
-                        list.add(name.getName());
-                }
-                return list;
-        }
+    void deleteAllInBatch(Iterable<Products> entities);
 
-        public List<Integer> getListIdCategory() {
+    void deleteById(Integer id);
 
-                List<Integer> list = new ArrayList<Integer>();
-                CategoryService service = new CategoryService();
+    void deleteInBatch(Iterable<Products> entities);
 
-                for (Category name : service.getListCategory()) {
-                        list.add(name.getId());
-                }
-                return list;
-        }
+    boolean equals(Object obj);
 
-        public List<Integer> convertId(String name) {
+    <S extends Products> boolean exists(Example<S> example);
 
-                List<Integer> list = new ArrayList<Integer>();
-                CategoryService service = new CategoryService();
+    boolean existsById(Integer id);
 
-                for (Category item : service.getListCategory()) {
-                        if (item.getName().equals(name)) {
-                                list.add(item.getId());
-                        }
-                }
-                return list;
-        }
+    List<Products> findAll();
 
-        public boolean remove(int id) {
-                try {
-                        for (int i = 0; i <= list.size(); i++) {
-                                if (list.get(i).getId() == id) {
-                                        // xoá đi
-                                        list.remove(i);
-                                        return true;
-                                }
-                        }
-                        return false;
-                } catch (Exception e) {
-                        return false;
-                }
-        }
+    <S extends Products> List<S> findAll(Example<S> example);
 
-        public boolean edit(Product cate) {
-                try {
-                        // kiểm trra xem đã có username chưa
-                        for (int i = 0; i <= list.size(); i++) {
-                                if (list.get(i).getId() == cate.getId()) {
-                                        list.set(i, cate);
-                                        return true;
-                                }
-                        }
-                        list.add(cate);
-                        return true;
-                } catch (Exception e) {
-                        return false;
-                }
+    <S extends Products> Page<S> findAll(Example<S> example, Pageable pageable);
 
-        }
+    <S extends Products> List<S> findAll(Example<S> example, Sort sort);
 
-        public boolean add(Product cate) {
-                try {
-                        list.add(cate);
-                        return true;
-                } catch (Exception e) {
-                        return false;
-                }
+    Page<Products> findAll(Pageable pageable);
 
-        }
+    List<Products> findAll(Sort sort);
 
-        
-    public Product findProductsById(int id) {
-        for (Product cate : list) {
-            if (cate.getId() == id) {
-                return cate;
-            }
-        }
-        return null;
-    }
+    List<Products> findAllById(Iterable<Integer> ids);
 
-        // public boolean add(Account acc) {
-        // try {
-        // // kiểm trra xem đã có username chưa
-        // for (int i = 0; i <= list.size(); i++) {
-        // if (list.get(i).getUsername().equals(acc.getUsername())) {
-        // list.set(i, acc);
+    <S extends Products, R> R findBy(Example<S> example,
+            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
 
-        // return true;
-        // }
-        // }
-        // list.add(acc);
-        // return true;
-        // } catch (Exception e) {
-        // return false;
-        // }
+    Optional<Products> findById(Integer id);
 
-        // }
+    <S extends Products> Optional<S> findOne(Example<S> example);
 
-        // public boolean remove(String username) {
-        // try {
-        // for (int i = 0; i <= list.size(); i++) {
-        // if (list.get(i).getUsername().equals(username)) {
-        // //xoá đi
-        // list.remove(i);
-        // return true;
-        // }
-        // }
-        // return false;
-        // } catch (Exception e) {
-        // return false;
-        // }
-        // }
+    void flush();
 
-        // public Account findAccountByUsername(String username) {
-        // for (Account account : list) {
-        // if (account.getUsername().equals(username)) {
-        // return account;
-        // }
-        // }
-        // return null;
-        // }
+    Products getById(Integer id);
+
+    Products getOne(Integer id);
+
+    int hashCode();
+
+    <S extends Products> S save(S entity);
+
+    <S extends Products> List<S> saveAll(Iterable<S> entities);
+
+    <S extends Products> List<S> saveAllAndFlush(Iterable<S> entities);
+
+    <S extends Products> S saveAndFlush(S entity);
+
+    String toString();
+
 }

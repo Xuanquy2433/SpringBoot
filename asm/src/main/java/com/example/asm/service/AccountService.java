@@ -5,13 +5,14 @@ import com.example.asm.domain.Account;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 
-public interface AccountService  {
+public interface AccountService {
 
     long count();
 
@@ -23,21 +24,21 @@ public interface AccountService  {
 
     void deleteAll(Iterable<? extends Account> entities);
 
-    void deleteAllById(Iterable<? extends Long> ids);
+    void deleteAllById(Iterable<? extends String> ids);
 
-    void deleteAllByIdInBatch(Iterable<Long> ids);
+    void deleteAllByIdInBatch(Iterable<String> ids);
 
     void deleteAllInBatch();
 
     void deleteAllInBatch(Iterable<Account> entities);
 
-    void deleteById(Long id);
+    void deleteById(String id);
 
     void deleteInBatch(Iterable<Account> entities);
 
     <S extends Account> boolean exists(Example<S> example);
 
-    boolean existsById(Long id);
+    boolean existsById(String id);
 
     List<Account> findAll();
 
@@ -51,19 +52,19 @@ public interface AccountService  {
 
     List<Account> findAll(Sort sort);
 
-    List<Account> findAllById(Iterable<Long> ids);
+    List<Account> findAllById(Iterable<String> ids);
 
     <S extends Account, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
 
-    Optional<Account> findById(Long id);
+    Optional<Account> findById(String id);
 
     <S extends Account> Optional<S> findOne(Example<S> example);
 
     void flush();
 
-    Account getById(Long id);
+    Account getById(String id);
 
-    Account getOne(Long id);
+    Account getOne(String id);
 
     <S extends Account> S save(S entity);
 
@@ -73,5 +74,10 @@ public interface AccountService  {
 
     <S extends Account> S saveAndFlush(S entity);
 
-    
+    // boolean equals(Object obj);
+
+    // int hashCode();
+
+    // String toString();
+
 }

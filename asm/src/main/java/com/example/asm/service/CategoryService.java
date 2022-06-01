@@ -1,87 +1,85 @@
 package com.example.asm.service;
 
-import java.util.ArrayList;
+import com.example.asm.domain.Categories;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
 
-import com.example.asm.dto.Category;
 
-import org.springframework.stereotype.Service;
 
-@Service
-public class CategoryService {
-    List<Category> list = new ArrayList<Category>();
 
-    public void setList(List<Category> list) {
-        this.list = list;
-    }
+public interface CategoryService {
 
-    public CategoryService() {
-        list.add(new Category(1, "Oppo", "https://bvtmobile.com/uploads/source/iphone-13/iphone-13-pro-xanh-la.jpg",
-                "none"));
-        list.add(new Category(2, "Samsung", "https://bvtmobile.com/uploads/source/iphone-13/iphone-13-pro-xanh-la.jpg",
-                "none"));
-        list.add(new Category(3, "Iphone", "https://bvtmobile.com/uploads/source/iphone-13/iphone-13-pro-xanh-la.jpg",
-                "none"));
-        list.add(new Category(4, "Xiaomi", "https://bvtmobile.com/uploads/source/iphone-13/iphone-13-pro-xanh-la.jpg",
-                "none"));
-        list.add(new Category(5, "Redmi", "https://bvtmobile.com/uploads/source/iphone-13/iphone-13-pro-xanh-la.jpg",
-                "none"));
+    long count();
 
-    }
+    <S extends Categories> long count(Example<S> example);
 
-    public List<Category> getListCategory() {
-        return this.list;
-    }
+    void delete(Categories entity);
 
-    public boolean remove(int id) {
-        try {
-            for (int i = 0; i <= list.size(); i++) {
-                if (list.get(i).getId() == id) {
-                    // xoá đi
-                    list.remove(i);
-                    return true;
-                }
-            }
-            return false;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+    void deleteAll();
 
-    public boolean edit(Category cate) {
-        try {
-            // kiểm trra xem đã có username chưa
-            for (int i = 0; i <= list.size(); i++) {
-                if (list.get(i).getId() == cate.getId()) {
-                    list.set(i, cate);
-                    return true;
-                }
-            }
-            list.add(cate);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    void deleteAll(Iterable<? extends Categories> entities);
 
-    }
+    void deleteAllById(Iterable<? extends Integer> ids);
 
-    public boolean add(Category cate) {
-        try {
-            System.out.println("hihihihih: " + this.getListCategory());
-            list.add(cate);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+    void deleteAllByIdInBatch(Iterable<Integer> ids);
 
-    }
+    void deleteAllInBatch();
 
-    public Category findCategoryById(int id) {
-        for (Category cate : list) {
-            if (cate.getId() == id) {
-                return cate;
-            }
-        }
-        return null;
-    }
+    void deleteAllInBatch(Iterable<Categories> entities);
+
+    void deleteById(Integer id);
+
+    void deleteInBatch(Iterable<Categories> entities);
+
+    boolean equals(Object obj);
+
+    <S extends Categories> boolean exists(Example<S> example);
+
+    boolean existsById(Integer id);
+
+    List<Categories> findAll();
+
+    <S extends Categories> List<S> findAll(Example<S> example);
+
+    <S extends Categories> Page<S> findAll(Example<S> example, Pageable pageable);
+
+    <S extends Categories> List<S> findAll(Example<S> example, Sort sort);
+
+    Page<Categories> findAll(Pageable pageable);
+
+    List<Categories> findAll(Sort sort);
+
+    List<Categories> findAllById(Iterable<Integer> ids);
+
+    <S extends Categories, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
+
+    Optional<Categories> findById(Integer id);
+
+    <S extends Categories> Optional<S> findOne(Example<S> example);
+
+    void flush();
+
+    Categories getById(Integer id);
+
+    Categories getOne(Integer id);
+
+    int hashCode();
+
+    <S extends Categories> S save(S entity);
+
+    <S extends Categories> List<S> saveAll(Iterable<S> entities);
+
+    <S extends Categories> List<S> saveAllAndFlush(Iterable<S> entities);
+
+    <S extends Categories> S saveAndFlush(S entity);
+
+    String toString();
+
+    
 }

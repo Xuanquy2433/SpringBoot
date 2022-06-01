@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/dawn.png">
     <title>
-      Dawn  Categories
+        Dawn Categories
     </title>
     <base href="/">
     <!--     Fonts and icons     -->
@@ -65,6 +65,13 @@
                             <p>Accounts</p>
                         </a>
                     </li>
+                    <li>
+                        <a th:href="@{/dashboard/roles}">
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Roles</p>
+                        </a>
+                    </li>
+
                     <li class="active ">
                         <a th:href="@{/dashboard/categories}">
                             <i class="tim-icons icon-puzzle-10"></i>
@@ -110,7 +117,7 @@
               <p>Table List</p>
             </a>
           </li> -->
-<!-- 
+                    <!-- 
                     <li class="active-pro">
                         <a href="./upgrade.html">
                             <i class="tim-icons icon-spaceship"></i>
@@ -212,8 +219,10 @@
             <div class="content">
                 <div class="row">
                     <div class="col-md-12">
-                        <a class="btn btn-primary"  th:href="@{/dashboard/categories/create}">Create</a>
-                        <span style="margin-left: 410px;" th:text="${message}" ></span>
+                        <a class="btn btn-primary" th:href="@{/dashboard/categories/create}">Create</a>
+                        <div class="alert alert-success" role="alert" th:text="${success}" th:if="${success}"></div>
+                        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                        <span style="margin-left: 410px;" th:text="${message}"></span>
 
                         <div class="card ">
                             <div class="card-header">
@@ -230,12 +239,6 @@
                                                 <th>
                                                     Name
                                                 </th>
-                                                <th>
-                                                    Image
-                                                </th>
-                                                <th>
-                                                    Description
-                                                </th>
                                                 <th class="text-center">
                                                     Actions
                                                 </th>
@@ -245,13 +248,13 @@
                                             <tr th:each="item : ${categorys}">
                                                 <td th:text="${item.getId()}"></td>
                                                 <td th:text="${item.getName()}"></td>
-                                                <td style="width: 25%;">
-                                                    <img style="width: 15%;" th:src="${item.getImage()}">
-                                                </td>
-                                                <td th:text="${item.getDescription()}"></td>
+
+
                                                 <td class="text-center">
-                                                    <a th:href="@{'/dashboard/categories/edit/' + ${item.getId()}}">Edit</a>
-                                                    <a onclick="demo.showNotification('bottom','right')" style="margin-left: 25px;" th:href="@{'/dashboard/categories/delete/' + ${item.getId()}}">Delete</a>
+                                                    <a
+                                                        th:href="@{'/dashboard/categories/edit/' + ${item.getId()}}">Edit</a>
+                                                    <a style="margin-left: 25px;"
+                                                        th:href="@{'/dashboard/categories/remove/' + ${item.getId()}}">Delete</a>
                                                 </td>
                                                 <!-- <td>
                                                   <a th:href="@{'/user/edit/' + ${item.getUsername()}}">Edit</a>

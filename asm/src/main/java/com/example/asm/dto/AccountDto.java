@@ -20,5 +20,12 @@ public class AccountDto {
     @NotEmpty
     private String password;
     @NotEmpty
-    private String role;
+    private String fullName;
+    @NotEmpty
+    private String email;
+    @NotEmpty
+    private String photo;
+    private boolean activated;
+    private boolean admin;
+
 }

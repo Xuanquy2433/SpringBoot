@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/dawn.png">
     <title>
-       Dawn Form-Category
+        Dawn Form-Category
     </title>
     <base href="/">
     <!--     Fonts and icons     -->
@@ -62,9 +62,16 @@
                     <li>
                         <a th:href="@{/dashboard/accounts}">
                             <i class="tim-icons icon-single-02"></i>
-                          <p>Accounts</p>
+                            <p>Accounts</p>
                         </a>
-                      </li>
+                    </li>
+                    <li>
+                        <a th:href="@{/dashboard/roles}">
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Roles</p>
+                        </a>
+                    </li>
+
                     <li class="active ">
                         <a th:href="@{/dashboard/categories}">
                             <i class="tim-icons icon-puzzle-10"></i>
@@ -183,8 +190,7 @@
                                 <h5 class="title">Create Category</h5>
                             </div>
                             <div class="card-body">
-                                <form th:action="@{/dashboard/categories/create}" th:object="${category}"
-                                    method="post">
+                                <form th:action="@{/dashboard/categories/create}" th:object="${category}" method="post">
                                     <div class="row">
                                         <div class="col-md-5 pr-md-1">
                                             <div class="form-group">
@@ -195,13 +201,13 @@
                                                     required</span>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 px-md-1">
+                                        <!-- <div class="col-md-3 px-md-1">
                                             <div class="form-group">
                                                 <label>Id</label>
                                                 <input type="number" class="form-control" placeholder="Username"
                                                     th:field="*{id}">
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!-- <div class="col-md-4 pl-md-1">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Email address</label>
@@ -225,7 +231,7 @@
                                             </div>
                                         </div>
                                     </div> -->
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Image</label>
@@ -235,7 +241,7 @@
                                                     required</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- <div class="row">
                                         <div class="col-md-4 pr-md-1">
                                             <div class="form-group">
@@ -257,7 +263,7 @@
                                             </div>
                                         </div>
                                     </div> -->
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label>Description</label>
@@ -268,9 +274,10 @@
                                                     required</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="card-footer">
-                                        <button  onclick="demo.showNotification('bottom','right')" type="submit" class="btn btn-fill btn-primary">Save</button>
+                                        <button  type="submit"
+                                            class="btn btn-fill btn-primary">Save</button>
                                     </div>
                                 </form>
                             </div>

@@ -1,10 +1,13 @@
 package com.example.asm.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.example.asm.domain.Categories;
 import com.example.asm.dto.Category;
+import com.example.asm.dto.CategoryDto;
 import com.example.asm.service.CategoryService;
 
 import org.springframework.beans.BeanUtils;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("dashboard")
@@ -26,11 +30,9 @@ public class CategoriesController {
 
     @GetMapping("categories")
     public String categories(Model model) {
-        System.out.println("go here");
 
-        List<Category> categorys = categoryService.getListCategory();
-        model.addAttribute("categorys", categorys);
-       
+        List<Categories> categories = categoryService.findAll();
+        model.addAttribute("categorys", categories);
 
         return "admin/custom/categories";
     }
@@ -50,62 +52,68 @@ public class CategoriesController {
     public String edit(Model model, @PathVariable("id") int id) {
 
         if (id != 0) {
-            Category categoryEdit = categoryService.findCategoryById(id);
-            System.out.println("List category edit: " + categoryEdit);
-            model.addAttribute("categorys", categoryEdit);
-
-            return "admin/form/editCategories";
+            Optional<Categories> cateDetail = categoryService.findById(id);
+            if (cateDetail.isPresent()) {
+                model.addAttribute("category", cateDetail.get());
+                return "admin/form/editCategories";
+            }
         }
-        return "redirect:/dashboard/categories";
+        return "redirect:/dashboard/editCategories";
     }
 
     // edit categories post
     @PostMapping("categories/edit")
-    public String createCategoriesPost(Model model, @Valid @ModelAttribute("category") Category dto,
-            BindingResult result) {
+    public String editRole(Model model,
+            @Valid @ModelAttribute("id") CategoryDto dto,
+            BindingResult result,
+            RedirectAttributes redirAttrs) {
+        // kiểm tra lỗi
         if (result.hasErrors()) {
+            System.out.print("loi");
             // đẩy lại view và đưa ra thông báo lỗi
-            System.out.println("CO EROR");
-            return "admin/form/createCategories";
+            return "admin/form/editCategories";
+
         }
-
-        Category copy = new Category();
-        BeanUtils.copyProperties(dto, copy);
-        System.out.println("copy: " + copy);
-        categoryService.edit(copy);
-        return "redirect:/dashboard/categories";
-
+        Categories categories = new Categories();
+        // account.setUsername(dto.getUsername());
+        BeanUtils.copyProperties(dto, categories);
+        categoryService.save(categories);
+        redirAttrs.addFlashAttribute("success", "Edit succsess");
+        return "redirect:/dashboard/categories"; // Return tên của View, model sẽ tự động pass vào view
     }
 
     // create categories
     @PostMapping("categories/create")
-    public String edit(Model model, @Valid @ModelAttribute("category") Category dto,
-            BindingResult result) {
+    public String createCategoriesPost(Model model, @Valid @ModelAttribute("categorys") CategoryDto dto,
+            BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             // đẩy lại view và đưa ra thông báo lỗi
             System.out.println("CO EROR");
             return "admin/form/createCategories";
         }
 
-        Category copy = new Category();
+        Categories copy = new Categories();
         BeanUtils.copyProperties(dto, copy);
-        System.out.println("copy edittt : " + copy);
-        // result.rejectValue("username", "error.username.exists", "Add succsess.");
-        categoryService.add(copy);
-
+        System.out.println("copy: " + copy);
+        categoryService.save(copy);
+        redirectAttributes.addFlashAttribute("success", "Add succsess");
         return "redirect:/dashboard/categories";
 
     }
 
     // delete categories
-    @GetMapping("categories/delete/{id}")
-    public String deleteCategory(@PathVariable("id") int id, Model model) {
-
+    @GetMapping("categories/remove/{id}")
+    public String delete(
+            @PathVariable("id") int id,
+            RedirectAttributes redirAttrs) {
         if (id != 0) {
-            categoryService.remove(id);
+            Optional<Categories> detail = categoryService.findById(id);
+            if (detail.isPresent()) {
+                categoryService.delete(detail.get());
+                redirAttrs.addFlashAttribute("success", "Xóa thành công");
+                return "redirect:/dashboard/categories";
+            }
         }
-
         return "redirect:/dashboard/categories";
     }
-
 }
