@@ -65,12 +65,13 @@
                             <p>Accounts</p>
                         </a>
                     </li>
-                    <li >
+                    <li>
                         <a th:href="@{/dashboard/roles}">
                             <i class="tim-icons icon-atom"></i>
                             <p>Roles</p>
                         </a>
                     </li>
+
                     <li>
                         <a th:href="@{/dashboard/categories}">
                             <i class="tim-icons icon-puzzle-10"></i>
@@ -189,9 +190,11 @@
                                 <h5 class="title">Create Products</h5>
                             </div>
                             <div class="card-body">
-                                <form th:action="@{/dashboard/products/edit}" th:object="${product}" method="post">
+                                <form th:action="@{/dashboard/products/edit}" th:object="${products}" method="post">
                                     <div class="row">
                                         <div class="col-md-5 pr-md-1">
+
+                                            <input type="hidden" th:field="*{id}">
                                             <div class="form-group">
                                                 <label>Name</label>
                                                 <input type="text" class="form-control" th:field="*{name}"
@@ -200,14 +203,6 @@
                                                     required</span>
                                             </div>
                                         </div>
-
-
-                                        <!-- <label>Id</label> -->
-                                        <input type="hidden" class="form-control" placeholder="Username"
-                                            th:field="*{id}">
-
-
-
                                         <div class="col-md-3 px-md-1">
                                             <div class="form-group">
                                                 <label>Price</label>
@@ -220,32 +215,22 @@
                                         <div class="col-md-4 pl-md-1">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Category</label>
-                                                <select style="color: #A9A59F;" name="categoryId" class="form-control"
-                                                    aria-label=".form-select-sm example">
-                                                    <option selected>Choose Category</option>
-                                                    <option th:field="*{categoryId}" th:each="items : ${listCategorys}"
-                                                        th:value="${items}" th:text="${items}">One</option>
+                                                <select th:field="*{category}" style="color: #A9A59F;" name="categoryId"
+                                                    class="form-control" aria-label=".form-select-sm example">
+                                                    <!-- <option selected>Choose Category</option> -->
+                                                    <option th:each="items : ${categorys}"
+                                                        th:value="${items.getCategoryId()}"
+                                                        th:text="${items.getName()}">One
+                                                    </option>
 
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="row">
-                                        <div class="col-md-6 pr-md-1">
-                                            <div class="form-group">
-                                                <label>First Name</label>
-                                                <input type="text" class="form-control" placeholder="Company"
-                                                    value="Mike">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 pl-md-1">
-                                            <div class="form-group">
-                                                <label>Last Name</label>
-                                                <input type="text" class="form-control" placeholder="Last Name"
-                                                    value="Andrew">
-                                            </div>
-                                        </div>
-                                    </div> -->
+                                    <div class="row">
+
+
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
@@ -256,15 +241,25 @@
                                                     required</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- <div class="row">
-                                        <div class="col-md-4 pr-md-1">
+                                        <div class="col-md-6 pr-md-1">
                                             <div class="form-group">
-                                                <label>City</label>
-                                                <input type="text" class="form-control" placeholder="City" value="Mike">
+                                                <label>AVAILABLE</label>
+                                                <input style="width: 20px;" type="checkbox" th:field="*{available}"
+                                                    name="available" th:checked="${available}" />
                                             </div>
                                         </div>
-                                        <div class="col-md-4 px-md-1">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 pr-md-1">
+                                            <div class="form-group">
+                                                <!-- <label>CreateAt</label>
+                                                <input type="text" class="form-control" th:field="*{createDate}" value="07/15/2019">
+                                                <span class="error"
+                                                    th:if="${#fields.hasErrors('createDate')}">createDate is
+                                                    required</span> -->
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-4 px-md-1">
                                             <div class="form-group">
                                                 <label>Country</label>
                                                 <input type="text" class="form-control" placeholder="Country"
@@ -276,8 +271,8 @@
                                                 <label>Postal Code</label>
                                                 <input type="number" class="form-control" placeholder="ZIP Code">
                                             </div>
-                                        </div>
-                                    </div> -->
+                                        </div> -->
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-8">
                                             <div class="form-group">
@@ -291,7 +286,7 @@
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <button   onclick="demo.showNotification('bottom','right')" type="submit" class="btn btn-fill btn-primary">Save</button>
+                                        <button type="submit" class="btn btn-fill btn-primary">Save</button>
                                     </div>
                                 </form>
                             </div>

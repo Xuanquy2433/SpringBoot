@@ -246,6 +246,12 @@
                                                     Email
                                                 </th>
                                                 <th>
+                                                    Admin
+                                                </th>
+                                                <th>
+                                                    Activeted
+                                                </th>
+                                                <th>
                                                     Photo
                                                 </th>
                                                 <th class="text-center">
@@ -260,6 +266,28 @@
                                                 <td th:text="${item.getPassword()}"></td>
                                                 <td th:text="${item.getFullName()}"></td>
                                                 <td th:text="${item.getEmail()}"></td>
+                                                <span th:switch="${item.admin}">
+                                                    <td class="text-center align-middle">
+                                                        <i th:case="true"
+                                                            class="fa fa-fw text-secondary cursor-pointer fa-toggle-on text-success"
+                                                            style="color:blue"></i>
+                                                        <i th:case="false"
+                                                            class="fa fa-fw text-secondary cursor-pointer fa-toggle-off ">
+                                                    </td>
+
+
+                                                </span>
+                                                <span th:switch="${item.activated}">
+                                                    <td class="text-center align-middle">
+                                                        <i th:case="true"
+                                                            class="fa fa-fw text-secondary cursor-pointer fa-toggle-on text-success"
+                                                            style="color:blue"></i>
+                                                        <i th:case="false"
+                                                            class="fa fa-fw text-secondary cursor-pointer fa-toggle-off ">
+                                                    </td>
+
+
+                                                </span>
                                                 <td style="width: 10%;">
                                                     <img style="width: 40%;" th:src="${item.getPhoto()}">
                                                 </td>

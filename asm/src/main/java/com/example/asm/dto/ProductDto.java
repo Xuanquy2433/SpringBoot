@@ -2,7 +2,11 @@ package com.example.asm.dto;
 
 import java.util.Date;
 
+import javax.persistence.PrePersist;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -19,9 +23,10 @@ public class ProductDto {
     private String name;
     @NotEmpty
     private String image;
-    @NotEmpty
-    // @Range(min = 0, max = 10)
-    private String price;
+    // @Min(0)
+    // @Max(100)
+    @Range(min = 0)
+    private float price;
 
     private Date createDate;
 
@@ -30,6 +35,6 @@ public class ProductDto {
     @NotEmpty
     private String description;
 
-    private int categoryId;
+    private int category;
 
 }

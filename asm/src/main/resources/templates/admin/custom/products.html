@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/dawn.png">
     <title>
-       Dawn Products
+        Dawn Products
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
@@ -58,7 +58,7 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li >
+                    <li>
                         <a th:href="@{/dashboard/accounts}">
                             <i class="tim-icons icon-single-02"></i>
                             <p>Accounts</p>
@@ -66,11 +66,11 @@
                     </li>
                     <li>
                         <a th:href="@{/dashboard/roles}">
-                          <i class="tim-icons icon-atom"></i>
-                          <p>Roles</p>
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Roles</p>
                         </a>
-                      </li>
-            
+                    </li>
+
                     <li>
                         <a th:href="@{/dashboard/categories}">
                             <i class="tim-icons icon-puzzle-10"></i>
@@ -212,8 +212,10 @@
             <div class="content">
                 <div class="row">
                     <div class="col-md-12">
-                        <a class="btn btn-primary"  th:href="@{/dashboard/products/create}">Create</a>
-                        <span style="margin-left: 410px;" th:text="${message}" ></span>
+                        <a class="btn btn-primary" th:href="@{/dashboard/products/create}">Create</a>
+                        <div class="alert alert-success" role="alert" th:text="${success}" th:if="${success}"></div>
+                        <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
+                        <span style="margin-left: 410px;" th:text="${message}"></span>
                         <div class="card ">
                             <div class="card-header">
                                 <h4 class="card-title"> Products</h4>
@@ -236,10 +238,17 @@
                                                     Price
                                                 </th>
                                                 <th>
+                                                    Create Date
+                                                </th>
+                                                <th>
+                                                    Available
+                                                </th>
+
+                                                <th>
                                                     Description
                                                 </th>
                                                 <th>
-                                                    CategoryId
+                                                    Category
                                                 </th>
                                                 <th class="text-center">
                                                     Actions
@@ -260,15 +269,37 @@
                                                 <td th:text="${item.getPrice()}">
 
                                                 </td>
+                                                <td th:text="${item.getCreateDate()}">
+
+                                                </td>
+                                                <!-- <td th:text="${item.getAvailable()}">
+
+                                                </td> -->
+
+                                                <span th:switch="${item.available}">
+                                                    <td class="text-center align-middle">
+                                                        <i th:case="true"
+                                                            class="fa fa-fw text-secondary cursor-pointer fa-toggle-on text-success"
+                                                            style="color:blue"></i>
+                                                        <i th:case="false"
+                                                            class="fa fa-fw text-secondary cursor-pointer fa-toggle-off ">
+                                                    </td>
+
+
+                                                </span>
+
                                                 <td th:text="${item.getDescription()}">
 
                                                 </td>
-                                                <td th:text="${item.getCategoryId()}">
+                                                <td th:text="${item.category.getName()}">
 
                                                 </td>
                                                 <td class="text-center">
-                                                    <a th:href="@{'/dashboard/products/edit/' + ${item.getId()}}">Edit</a>
-                                                    <a onclick="demo.showNotification('bottom','right')" style="margin-left: 25px;" th:href="@{'/dashboard/products/delete/' + ${item.getId()}}">Delete</a>
+                                                    <a
+                                                        th:href="@{'/dashboard/products/edit/' + ${item.getId()}}">Edit</a>
+                                                    <a  
+                                                        style="margin-left: 25px;"
+                                                        th:href="@{'/dashboard/products/delete/' + ${item.getId()}}">Delete</a>
                                                 </td>
                                             </tr>
 

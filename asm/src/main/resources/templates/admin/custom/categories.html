@@ -246,15 +246,15 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="item : ${categorys}">
-                                                <td th:text="${item.getId()}"></td>
+                                                <td th:text="${item.getCategoryId()}"></td>
                                                 <td th:text="${item.getName()}"></td>
 
 
                                                 <td class="text-center">
                                                     <a
-                                                        th:href="@{'/dashboard/categories/edit/' + ${item.getId()}}">Edit</a>
+                                                        th:href="@{'/dashboard/categories/edit/' + ${item.getCategoryId()}}">Edit</a>
                                                     <a style="margin-left: 25px;"
-                                                        th:href="@{'/dashboard/categories/remove/' + ${item.getId()}}">Delete</a>
+                                                        th:href="@{'/dashboard/categories/remove/' + ${item.getCategoryId()}}">Delete</a>
                                                 </td>
                                                 <!-- <td>
                                                   <a th:href="@{'/user/edit/' + ${item.getUsername()}}">Edit</a>

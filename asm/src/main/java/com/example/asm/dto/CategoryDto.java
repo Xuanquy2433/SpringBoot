@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Component
 public class CategoryDto {
 
-    private int id;
+    private int categoryId;
     @NotEmpty
     private String name;
 

@@ -14,10 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,8 +31,7 @@ public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 50, nullable = false)
-   
-    
+
     private int Id;
 
     @Column(length = 200, nullable = false)
@@ -44,8 +43,14 @@ public class Products {
     @Column(length = 200, nullable = false)
     private float price;
 
-    @Temporal(TemporalType.DATE) 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date createDate;
+
+    @PrePersist
+    private void createAt() {
+        createDate = new Date();
+    }
 
     @Column(length = 200, nullable = false)
     private boolean available;
@@ -57,16 +62,14 @@ public class Products {
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "categoryId")
-    private Categories categories;
+    private Category category;
 
-    
     // @OneToMany(mappedBy = "products", cascade = { CascadeType.ALL })
     // Set<> accounts;
 
     // @ManyToMany(mappedBy = "products")
-    // @EqualsAndHashCode.Exclude 
+    // @EqualsAndHashCode.Exclude
     // @Exclude
     // private Collection<OrderDetails> orderDetails;
-
 
 }

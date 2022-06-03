@@ -5,8 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.example.asm.domain.Categories;
-import com.example.asm.dto.Category;
+import com.example.asm.domain.Category;
 import com.example.asm.dto.CategoryDto;
 import com.example.asm.service.CategoryService;
 
@@ -31,7 +30,7 @@ public class CategoriesController {
     @GetMapping("categories")
     public String categories(Model model) {
 
-        List<Categories> categories = categoryService.findAll();
+        List<Category> categories = categoryService.findAll();
         model.addAttribute("categorys", categories);
 
         return "admin/custom/categories";
@@ -52,7 +51,7 @@ public class CategoriesController {
     public String edit(Model model, @PathVariable("id") int id) {
 
         if (id != 0) {
-            Optional<Categories> cateDetail = categoryService.findById(id);
+            Optional<Category> cateDetail = categoryService.findById(id);
             if (cateDetail.isPresent()) {
                 model.addAttribute("category", cateDetail.get());
                 return "admin/form/editCategories";
@@ -74,7 +73,7 @@ public class CategoriesController {
             return "admin/form/editCategories";
 
         }
-        Categories categories = new Categories();
+        Category categories = new Category();
         // account.setUsername(dto.getUsername());
         BeanUtils.copyProperties(dto, categories);
         categoryService.save(categories);
@@ -92,7 +91,7 @@ public class CategoriesController {
             return "admin/form/createCategories";
         }
 
-        Categories copy = new Categories();
+        Category copy = new Category();
         BeanUtils.copyProperties(dto, copy);
         System.out.println("copy: " + copy);
         categoryService.save(copy);
@@ -107,7 +106,7 @@ public class CategoriesController {
             @PathVariable("id") int id,
             RedirectAttributes redirAttrs) {
         if (id != 0) {
-            Optional<Categories> detail = categoryService.findById(id);
+            Optional<Category> detail = categoryService.findById(id);
             if (detail.isPresent()) {
                 categoryService.delete(detail.get());
                 redirAttrs.addFlashAttribute("success", "Xóa thành công");
