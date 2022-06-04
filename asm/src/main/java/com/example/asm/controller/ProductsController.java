@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import com.example.asm.domain.Category;
 import com.example.asm.domain.Products;
 import com.example.asm.dto.ProductDto;
+import com.example.asm.dto.SearchBox;
 import com.example.asm.service.CategoryService;
 import com.example.asm.service.ProductService;
 
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -155,6 +157,44 @@ public class ProductsController {
             return "shopCategory";
         }
         return "redirect:dashboard/products"; // Return tên của View, model sẽ tự động pass vào view
+    }
+
+    @PostMapping("products/search")
+    public String search(Model model, @ModelAttribute("searchBox") SearchBox searchText) {
+
+        System.err.println("Name search " + searchText.getSearchText());
+
+        String search = "%" + searchText.getSearchText() + "%";
+
+        if (searchText != null) {
+            List<ProductDto> listSearch = productService.search(search);
+            model.addAttribute("listSearch", listSearch);
+            model.addAttribute("size", listSearch.size());
+            model.addAttribute("nameSearch", "\""+ searchText.getSearchText() + "\"");
+            return "shopSearch";
+        }
+        return "redirect:dashboard/products"; // Return tên của View, model sẽ tự động pass vào view
+    }
+
+    @GetMapping("products/sortAsc")
+    public String sortAsc(Model model) {    
+            List<ProductDto> listSearch = productService.getListSortAsc();
+            model.addAttribute("listSearch", listSearch);
+            return "shopSort";
+    }
+
+    @GetMapping("products/sortDesc")
+    public String sortDesc(Model model) {    
+            List<ProductDto> listSearch = productService.getListSortDesc();
+            model.addAttribute("listSearch", listSearch);
+            return "shopSort";
+    }
+
+    @GetMapping("products/sortName")
+    public String sortName(Model model) {    
+            List<ProductDto> listSearch = productService.getListSortName();
+            model.addAttribute("listSearch", listSearch);
+            return "shopSort";
     }
 
 }

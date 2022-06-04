@@ -82,4 +82,12 @@ public interface ProductService {
 
     List<ProductDto> getListCategory(int id);
 
+    List<ProductDto> getListSortAsc();
+
+    List<ProductDto> getListSortDesc();
+
+    List<ProductDto> getListSortName();
+
+    List<ProductDto> search(String name);
+
 }

@@ -27,9 +27,40 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/a36bda6cfe.js" crossorigin="anonymous"></script>
+    <style>
+        #style-1::-webkit-scrollbar {
+            width: 6px;
+            background-color: #F5F5F5;
+        }
+
+        #style-1::-webkit-scrollbar-thumb {
+            background-color: #000000;
+        }
+
+        #style-1::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #F5F5F5;
+        }
+
+        .sort {
+            border: 0px;
+            background-color: #F8F9FA;
+            cursor: pointer;
+            padding: 0;
+            transition: background-position 275ms ease;
+
+        }
+
+        .sort:hover {
+            color: #c0a705;
+            background-position: 0 100%;
+            outline: none;
+            border: 0px;
+        }
+    </style>
 </head>
 
-<body class="goto-here">
+<body class="goto-here" id="style-1">
     <div class="py-1 bg-black">
         <div class="container">
             <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
@@ -53,7 +84,7 @@
             </div>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="index.html">Dawn</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
@@ -84,6 +115,48 @@
                 </ul>
             </div>
         </div>
+    </nav> -->
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.jsp">Dawn</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a style="font-size: 13px;" th:href="@{/}" class="nav-link">Home</a></li>
+                    <li class="nav-item dropdown active">
+                        <a style="font-size: 13px;" class="nav-link dropdown-toggle" href="#" id="dropdown04"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" th:href="@{/shop}"> Shop</a>
+                            <a class="dropdown-item" href="product-single.jsp">Single Product</a>
+                            <a class="dropdown-item" href="cart.jsp">Cart</a>
+                            <a class="dropdown-item" href="checkout.jsp">Checkout</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="about.jsp" style="font-size: 13px;" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="blog.jsp" style="font-size: 13px;" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.jsp" style="font-size: 13px;" class="nav-link">Contact</a>
+                    </li>
+                    <li class="nav-item cta cta-colored"><a style="font-size: 13px;" href="cart.jsp"
+                            class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+
+                    <li class="nav-item"><a href="login.jsp" style="font-size: 13px;" class="nav-link"><i
+                                class="fa-solid fa-user"></i></a>
+                    <li class="nav-item"><a href="" style="font-size: 13px;" class="nav-link">Hi, ${name} </a>
+
+
+                    </li>
+
+                    <form method="get" action="./LogoutController" class="nav-item"><button
+                            style="font-size: 13px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer"
+                            class="nav-link"> Đăng xuất </button>
+                    </form>
+            </div>
+        </div>
     </nav>
     <!-- END nav -->
 
@@ -100,11 +173,13 @@
     </div>
 
     <section class="ftco-section bg-light">
-        <div  style="width: 40%; margin-left: 390px;" class="input-group mb-3 col">
+        <form th:action="@{/dashboard/products/search}" th:object="${searchBox}" method="post"
+            style="width: 40%; margin-left: 390px;" class="input-group mb-3 col">
             <input style="padding: 4px; border-radius: 8px 0px 0px 8px; border: 1px solid cyan; outline: none"
-                type="text" name="searchBox" placeholder="Search name here" aria-label="Recipient's username"
-                aria-describedby="basic-addon2">
+                type="text" name="searchBox" th:value="${searchText}" id="searchBox" placeholder="Search name here"
+                aria-label="Recipient's username" aria-describedby="basic-addon2">
             <div class="input-group-append">
+                <!-- th:href="@{dashboard/products/search}" -->
                 <button style="border-radius: 0px 8px 8px 0px; border: 1px solid cyan; outline: none"
                     class="btn btn-outline-secondary" onclick="(e) => {
                                 e.preventDefault();
@@ -112,7 +187,7 @@
 
                 <!--<a class="btn btn-outline-secondary"  href="${pageContext.request.contextPath}/ShopController?idSearch=5"> <i class="fa-solid fa-magnifying-glass"></i></a>-->
             </div>
-        </div>
+        </form>
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-lg-10 order-md-last">
@@ -120,7 +195,7 @@
                         <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate" th:each="items : ${products}">
                             <div class="product">
                                 <a th:href="@{'/dashboard/products/detail/' + ${items.getId()}}" class="img-prod"><img
-                                        style="height: 380px;" class="img-fluid" th:src="${items.getImage()}"
+                                        style="height: 320px;" class="img-fluid" th:src="${items.getImage()}"
                                         alt="Colorlib Template">
                                     <span class="status">30%</span>
                                     <div class="overlay"></div>
@@ -360,12 +435,26 @@
 
                 <div class="col-md-4 col-lg-2 sidebar">
                     <div class="sidebar-box-2">
-                        <h2 class="heading mb-4"><a>Categories</a></h2>
+                        <h2 class="heading mb-4"><a th:href="@{/shop}">Categories</a></h2>
                         <ul th:each="items : ${categorys}">
                             <li><a style="color: rgb(161, 161, 1); font-weight: 600;"
                                     th:href="@{'dashboard/products/findCate/' + ${items.getCategoryId()}}"
                                     th:text="${items.getName()}"></a></li>
 
+                        </ul>
+                    </div>
+                    <div class="sidebar-box-2">
+                        <h2 class="heading mb-4"><a href="#">Sort</a></h2>
+                        <ul>
+                            <li><a th:href="@{/dashboard/products/sortAsc}" name="button_sort_clicked"
+                                    value="ButtonSort" class="sort">Sort by price <i
+                                        class="fa-solid fa-arrow-up"></i></a></li>
+                            <li><a th:href="@{/dashboard/products/sortDesc}" name="button_sortDesc_clicked"
+                                    value="ButtonSort" class="sort">Sort by price <i
+                                        class="fa-solid fa-arrow-down"></i></a></li>
+                            <li><a th:href="@{/dashboard/products/sortName}" name="button_sortName_clicked"
+                                    value="ButtonSort" class="sort">Sort by name
+                                    A-Z</a></li>
                         </ul>
                     </div>
                     <div class="sidebar-box-2">

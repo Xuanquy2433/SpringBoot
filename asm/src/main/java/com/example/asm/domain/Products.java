@@ -42,7 +42,7 @@ public class Products {
     private String image;
 
     @Column(length = 200, nullable = false)
-    private float price;
+    private double price;
 
     @Temporal(TemporalType.TIMESTAMP)
     // @Column(nullable = false)

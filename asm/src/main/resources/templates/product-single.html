@@ -28,9 +28,24 @@
 	<link rel="stylesheet" th:href="@{/css/flaticon.css}">
 	<link rel="stylesheet" th:href="@{/css/icomoon.css}">
 	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<style>
+		#style-1::-webkit-scrollbar {
+			width: 6px;
+			background-color: #F5F5F5;
+		}
+
+		#style-1::-webkit-scrollbar-thumb {
+			background-color: #000000;
+		}
+
+		#style-1::-webkit-scrollbar-track {
+			-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+			background-color: #F5F5F5;
+		}
+	</style>
 </head>
 
-<body class="goto-here">
+<body id="style-1" class="goto-here">
 	<div class="py-1 bg-black">
 		<div class="container">
 			<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
@@ -56,7 +71,7 @@
 	</div>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.html">Dawn</a>
+			<a class="navbar-brand" href="index.jsp">Dawn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
 				aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="oi oi-menu"></span> Menu
@@ -64,24 +79,35 @@
 
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a th:href="@{/}" class="nav-link">Home</a></li>
+					<li class="nav-item"><a style="font-size: 13px;" th:href="@{/}" class="nav-link">Home</a></li>
 					<li class="nav-item dropdown active">
-						<a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">Shop</a>
+						<a style="font-size: 13px;" class="nav-link dropdown-toggle" href="#" id="dropdown04"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown04">
-							<a class="dropdown-item" href="shop.html">Shop</a>
-							<a class="dropdown-item" href="product-single.html">Single Product</a>
-							<a class="dropdown-item" href="cart.html">Cart</a>
-							<a class="dropdown-item" href="checkout.html">Checkout</a>
+							<a class="dropdown-item" th:href="@{/shop}"> Shop</a>
+							<a class="dropdown-item" href="product-single.jsp">Single Product</a>
+							<a class="dropdown-item" href="cart.jsp">Cart</a>
+							<a class="dropdown-item" href="checkout.jsp">Checkout</a>
 						</div>
 					</li>
-					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-					<li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span
-								class="icon-shopping_cart"></span>[0]</a></li>
+					<li class="nav-item"><a href="about.jsp" style="font-size: 13px;" class="nav-link">About</a></li>
+					<li class="nav-item"><a href="blog.jsp" style="font-size: 13px;" class="nav-link">Blog</a></li>
+					<li class="nav-item"><a href="contact.jsp" style="font-size: 13px;" class="nav-link">Contact</a>
+					</li>
+					<li class="nav-item cta cta-colored"><a style="font-size: 13px;" href="cart.jsp"
+							class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
-				</ul>
+					<li class="nav-item"><a href="login.jsp" style="font-size: 13px;" class="nav-link"><i
+								class="fa-solid fa-user"></i></a>
+					<li class="nav-item"><a href="" style="font-size: 13px;" class="nav-link">Hi, ${name} </a>
+
+
+					</li>
+
+					<form method="get" action="./LogoutController" class="nav-item"><button
+							style="font-size: 13px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer"
+							class="nav-link"> Đăng xuất </button>
+					</form>
 			</div>
 		</div>
 	</nav>
@@ -103,7 +129,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 mb-5 ftco-animate">
-					<a href="images/menu-2.jpg" class="image-popup"><img style="height: 700px;"
+					<!-- images/menu-2.jpg -->
+					<a th:href="@{'' + ${detail.getImage()}}" class="image-popup"><img style="height: 550px;"
 							th:src="${detail.getImage()}" class="img-fluid" alt="Colorlib Template"></a>
 				</div>
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate">

@@ -26,7 +26,7 @@ public class ProductDto {
     // @Min(0)
     // @Max(100)
     @Range(min = 0)
-    private float price;
+    private double price;
 
     private Date createDate;
 

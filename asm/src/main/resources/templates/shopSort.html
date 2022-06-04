@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
-    <title>Dawn - Shop - Category</title>
+    <title>Dawn - Shop - Search</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -65,6 +65,7 @@
 </style>
 
 <body id="style-1" class="goto-here">
+
     <div class="py-1 bg-black">
         <div class="container">
             <div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
@@ -126,16 +127,8 @@
                     <form method="get" action="./LogoutController" class="nav-item"><button
                             style="font-size: 13px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer"
                             class="nav-link"> Đăng xuất </button>
-
-
                     </form>
-
-
-
             </div>
-
-
-
         </div>
     </nav>
 
@@ -147,7 +140,7 @@
                 <div class="col-md-9 ftco-animate text-center">
                     <p class="breadcrumbs"><span class="mr-2"><a href="index.jsp">Home</a></span> <span>Products</span>
                     </p>
-                    <h1 class="mb-0 bread">Colections Products </h1>
+                    <h1 class="mb-0 bread">Collection Products</h1>
                 </div>
             </div>
         </div>
@@ -163,51 +156,19 @@
                 <!-- th:href="@{dashboard/products/search}" -->
                 <button style="border-radius: 0px 8px 8px 0px; border: 1px solid cyan; outline: none"
                     class="btn btn-outline-secondary" onclick="(e) => {
-                                e.preventDefault();
-                            }" type="submit"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+                            e.preventDefault();
+                        }" type="submit"> <i class="fa-solid fa-magnifying-glass"></i> </button>
 
                 <!--<a class="btn btn-outline-secondary"  href="${pageContext.request.contextPath}/ShopController?idSearch=5"> <i class="fa-solid fa-magnifying-glass"></i></a>-->
+          
             </div>
         </form>
+
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-lg-10 order-md-last">
                     <div class="row">
-
-                        <!-- <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
-                                    <div class="product">
-                                        <a class="img-prod"><img style="height: 415px; width: 100%;padding: 2px" class="img-fluid" src="${cat.image}" alt="Colorlib Template">
-                                            <span class="status">30%</span>
-                                            <div class="overlay"></div>
-                                        </a>
-                                        <div class="text py-3 px-3">
-                                            <h3><a href="#">${cat.name}</a></h3>
-                                            <div class="d-flex">
-                                                <div class="pricing">
-
-                                                   
-                                                    <p class="price"><span class="mr-2 price-dc">30%</span>
-                                                    <p style="color: #c2a500" class="price-sale"> <fmt:formatNumber value = "${cat.getPrice()}" 
-                                                                      type = "currency"/> </p>
-                                                </div>
-                                                <div class="rating">
-                                                    <p class="text-right">
-                                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
-                                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
-                                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
-                                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
-                                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <p class="bottom-area d-flex px-3">
-                                                <a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
-                                                <a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div> -->
-                        <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate" th:each="items : ${catDetails}">
+                        <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate" th:each="items : ${listSearch}">
                             <div class="product">
                                 <a th:href="@{'/dashboard/products/detail/' + ${items.getId()}}" class="img-prod"><img
                                         style="height: 320px;" class="img-fluid" th:src="${items.getImage()}"
@@ -244,6 +205,43 @@
                         </div>
 
 
+
+                        <!-- <c:forEach  items="${listSearch}" var="cat" >
+                                <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate">
+                                    <div class="product">
+                                        <a  href="${pageContext.request.contextPath}/ShopController?id=${cat.getId()}" class="img-prod"><img style="height: 415px; width: 100%;padding: 2px" class="img-fluid" src="${cat.image}" alt="Colorlib Template">
+                                            <span class="status">30%</span>
+                                            <div class="overlay"></div>
+                                        </a>
+                                        <div class="text py-3 px-3">
+                                            <h3><a href="#">${cat.name}</a></h3>
+                                            <div class="d-flex">
+                                                <div class="pricing">
+
+                                                    <%--<c:out value="${String.valueOf(cat.getPrice()).getClass().getName }" />--%>
+                                                    <p class="price"><span class="mr-2 price-dc">30%</span>
+                                                    <p style="color: #c2a500" class="price-sale"> <fmt:formatNumber value = "${cat.getPrice()}" 
+                                                                      type = "currency"/> </p>
+                                                </div>
+                                                <div class="rating">
+                                                    <p class="text-right">
+                                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                                        <a href="#"><span class="ion-ios-star-outline"></span></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <p class="bottom-area d-flex px-3">
+                                                <a href="#" class="add-to-cart text-center py-2 mr-1"><span>Add to cart <i class="ion-ios-add ml-1"></i></span></a>
+                                                <a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach> -->
+
                     </div>
                     <div class="row mt-5">
                         <div class="col text-center">
@@ -269,7 +267,6 @@
                             <li><a style="color: rgb(161, 161, 1); font-weight: 600;"
                                     th:href="@{'/dashboard/products/findCate/' + ${items.getCategoryId()}}"
                                     th:text="${items.getName()}"></a></li>
-
                         </ul>
                     </div>
                     <div  class="sidebar-box-2">
@@ -290,7 +287,7 @@
                             <li><a href="#">Dresses</a></li>
                             <li><a href="#">Shorts &amp; Skirts</a></li>
                             <li><a href="#">Jackets</a></li>
-                            <!-- <li><a href="${pageContext.request.contextPath}/static/trash/shop.jsp">Coats</a></li> -->
+                            <li><a href="${pageContext.request.contextPath}/static/trash/shop.jsp">Coats</a></li>
                             <li><a href="#">Jeans</a></li>
                             <li><a href="#">Sleeveless</a></li>
                             <li><a href="#">Trousers</a></li>
@@ -426,6 +423,7 @@
         th:src="@{/https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false}"></script>
     <script th:src="@{/js/google-map.js}"></script>
     <script th:src="@{/js/main.js}"></script>
+
 
 </body>
 

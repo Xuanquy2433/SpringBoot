@@ -173,7 +173,92 @@ public class ProductServiceImp implements ProductService {
 
             ResultSet rst = pst.executeQuery();
             while (rst.next()) {
-                ProductDto posts = new ProductDto(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getFloat(4),
+                ProductDto posts = new ProductDto(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getDouble(4),
+                        rst.getDate(5), rst.getBoolean(6), rst.getString(7), rst.getInt(8));
+                ListCat.add(posts);
+            }
+            return ListCat;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<ProductDto> search(String name) {
+        Connection conn = DBProvider.getConnection();
+        List<ProductDto> ListCat = new ArrayList<ProductDto>();
+        try {
+            String sql = "SELECT * FROM product where name like  ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, name);
+
+            ResultSet rst = pst.executeQuery();
+            while (rst.next()) {
+                ProductDto posts = new ProductDto(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getDouble(4),
+                        rst.getDate(5), rst.getBoolean(6), rst.getString(7), rst.getInt(8));
+                ListCat.add(posts);
+            }
+            return ListCat;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<ProductDto> getListSortAsc() {
+        Connection conn = DBProvider.getConnection();
+        List<ProductDto> ListCat = new ArrayList<ProductDto>();
+        try {
+            String sql = "SELECT * FROM product order by price asc";
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            ResultSet rst = pst.executeQuery();
+            while (rst.next()) {
+                ProductDto posts = new ProductDto(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getDouble(4),
+                        rst.getDate(5), rst.getBoolean(6), rst.getString(7), rst.getInt(8));
+                ListCat.add(posts);
+            }
+            return ListCat;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<ProductDto> getListSortDesc() {
+        Connection conn = DBProvider.getConnection();
+        List<ProductDto> ListCat = new ArrayList<ProductDto>();
+        try {
+            String sql = "SELECT * FROM product order by price desc";
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            ResultSet rst = pst.executeQuery();
+            while (rst.next()) {
+                ProductDto posts = new ProductDto(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getDouble(4),
+                        rst.getDate(5), rst.getBoolean(6), rst.getString(7), rst.getInt(8));
+                ListCat.add(posts);
+            }
+            return ListCat;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<ProductDto> getListSortName() {
+        Connection conn = DBProvider.getConnection();
+        List<ProductDto> ListCat = new ArrayList<ProductDto>();
+        try {
+            String sql = "SELECT * FROM product order by name";
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            ResultSet rst = pst.executeQuery();
+            while (rst.next()) {
+                ProductDto posts = new ProductDto(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getDouble(4),
                         rst.getDate(5), rst.getBoolean(6), rst.getString(7), rst.getInt(8));
                 ListCat.add(posts);
             }
