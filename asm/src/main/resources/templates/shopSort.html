@@ -181,8 +181,11 @@
                                     <h6><a href="#" th:text="${items.category}">Floral Jackquard Pullover</a></h6>
                                     <div class="d-flex">
                                         <div class="pricing">
-                                            <p class="price"><span class="mr-2 price-dc">$120.00</span><span
-                                                    class="price-sale" th:text="${items.getPrice()}">$80.00</span></p>
+                                            <p class="price"> <span class="mr-2 price-dc">$120.00</span>
+                                            </p>
+                                            <span style="color: black;" 
+                                                th:text="${#numbers.formatDecimal(items.getPrice(), 1, 'DEFAULT', 0, 'DEFAULT')}">$80.00</span>
+                                            <span style="color: black;" >VNĐ</span>
                                         </div>
                                         <div class="rating">
                                             <p class="text-right">

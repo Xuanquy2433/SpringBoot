@@ -266,7 +266,7 @@
                                                 <td style="width: 25%;">
                                                     <img style="width: 15%;" th:src="${item.getImage()}">
                                                 </td>
-                                                <td th:text="${item.getPrice()}">
+                                                <td  th:text="${#numbers.formatDecimal(item.getPrice(), 1, 'DEFAULT', 0, 'DEFAULT')}">
 
                                                 </td>
                                                 <td th:text="${item.getCreateDate()}">
