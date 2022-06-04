@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,12 +45,17 @@ public class Products {
     private float price;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    // @Column(nullable = false)
     private Date createDate;
 
     @PrePersist
     private void createAt() {
         createDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+      createDate = new Date();
     }
 
     @Column(length = 200, nullable = false)

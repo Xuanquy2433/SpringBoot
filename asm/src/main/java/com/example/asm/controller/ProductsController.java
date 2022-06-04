@@ -132,33 +132,29 @@ public class ProductsController {
         return "redirect:/dashboard/products";
     }
 
-    // ProductDto copy = new ProductDto();
-    // BeanUtils.copyProperties(dto, copy);
-    // System.out.println("copy: " + copy);
-    // productService.edit(copy);
-    // return "redirect:/dashboard/products";
+    @GetMapping("products/detail/{id}")
+    public String detail(Model model,
+            @PathVariable("id") int id) {
 
-    // }
+        if (id != 0) {
+            Products detail = productService.getById(id);
+            model.addAttribute("detail", detail);
+            return "product-single";
+        }
+        return "redirect:dashboard/products"; // Return tên của View, model sẽ tự động pass vào view
+    }
 
-    // ProductDto copy = new ProductDto();
-    // BeanUtils.copyProperties(dto, copy);
-    // System.out.println("copy: " + copy);
-    // productService.add(copy);
+    @GetMapping("products/findCate/{idCat}")
+    public String findCate(Model model,
+            @PathVariable("idCat") int idCat) {
 
-    // return "redirect:/dashboard/products";
-
-    // }
-
-    // // delete product
-    // @GetMapping("products/delete/{id}")
-    // public String deleteProduct(@PathVariable("id") int id, Model model) {
-
-    // if (id != 0) {
-    // productService.remove(id);
-
-    // }
-
-    // return "redirect:/dashboard/products";
-    // }
+        if (idCat != 0) {
+            List<ProductDto> detail = productService.getListCategory(idCat);
+            System.err.println("list cat 123" + detail);
+            model.addAttribute("catDetails", detail);
+            return "shopCategory";
+        }
+        return "redirect:dashboard/products"; // Return tên của View, model sẽ tự động pass vào view
+    }
 
 }

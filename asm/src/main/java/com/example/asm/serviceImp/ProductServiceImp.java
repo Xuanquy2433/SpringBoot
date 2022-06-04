@@ -2,7 +2,14 @@ package com.example.asm.serviceImp;
 
 import com.example.asm.Repository.ProductRepository;
 import com.example.asm.domain.Products;
+import com.example.asm.dto.ProductDto;
 import com.example.asm.service.ProductService;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -154,6 +161,28 @@ public class ProductServiceImp implements ProductService {
     @Override
     public String toString() {
         return productRepository.toString();
+    }
+
+    public List<ProductDto> getListCategory(int id) {
+        Connection conn = DBProvider.getConnection();
+        List<ProductDto> ListCat = new ArrayList<ProductDto>();
+        try {
+            String sql = "SELECT * FROM product where category_id =  ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, id);
+
+            ResultSet rst = pst.executeQuery();
+            while (rst.next()) {
+                ProductDto posts = new ProductDto(rst.getInt(1), rst.getString(2), rst.getString(3), rst.getFloat(4),
+                        rst.getDate(5), rst.getBoolean(6), rst.getString(7), rst.getInt(8));
+                ListCat.add(posts);
+            }
+            return ListCat;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.asm.service;
 
 import com.example.asm.domain.Products;
+import com.example.asm.dto.ProductDto;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -78,5 +79,7 @@ public interface ProductService {
     <S extends Products> S saveAndFlush(S entity);
 
     String toString();
+
+    List<ProductDto> getListCategory(int id);
 
 }
