@@ -173,7 +173,7 @@
                         <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate" th:each="items : ${listSearch}">
                             <div class="product">
                                 <a th:href="@{'/dashboard/products/detail/' + ${items.getId()}}" class="img-prod"><img
-                                        style="height: 320px;" class="img-fluid" th:src="${items.getImage()}"
+                                        style="height: 320px;width: 100%;" class="img-fluid" th:src="${items.getImage()}"
                                         alt="Colorlib Template">
                                     <span class="status">30%</span>
                                     <div class="overlay"></div>
