@@ -83,7 +83,7 @@ public class CategoriesController {
 
     // create categories
     @PostMapping("categories/create")
-    public String createCategoriesPost(Model model, @Valid @ModelAttribute("categorys") CategoryDto dto,
+    public String createCategoriesPost(Model model, @Valid @ModelAttribute("category") CategoryDto dto,
             BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             // đẩy lại view và đưa ra thông báo lỗi

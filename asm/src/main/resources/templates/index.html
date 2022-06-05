@@ -27,6 +27,7 @@
 	<link rel="stylesheet" href="css/flaticon.css">
 	<link rel="stylesheet" href="css/icomoon.css">
 	<link rel="stylesheet" href="css/style.css">
+	<script src="https://kit.fontawesome.com/a36bda6cfe.js" crossorigin="anonymous"></script>
 	<style>
 		#style-1::-webkit-scrollbar {
 			width: 6px;
@@ -70,7 +71,7 @@
 	</div>
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="index.jsp">Dawn</a>
+			<a class="navbar-brand" th:href="@{/}">Dawn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
 				aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="oi oi-menu"></span> Menu
@@ -95,7 +96,7 @@
 					</li>
 					<li class="nav-item cta cta-colored"><a style="font-size: 13px;" href="cart.jsp"
 							class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-					<li class="nav-item"><a href="login.jsp" style="font-size: 13px;" class="nav-link"><i
+					<li class="nav-item"><a th:href="@{/login}" style="font-size: 13px;" class="nav-link"><i
 								class="fa-solid fa-user"></i></a>
 					<li class="nav-item"><a href="" style="font-size: 13px;" class="nav-link">Hi, ${name} </a>
 					</li>
@@ -129,7 +130,7 @@
 									<p>A small river named Duden flows by their place and supplies it with the necessary
 										regelialia. It is a paradisematic country.</p>
 
-									<p><a href="#" class="btn btn-primary px-5 py-3 mt-3">Discover Now</a></p>
+									<p><a th:href="@{/shop}" class="btn btn-primary px-5 py-3 mt-3">Discover Now</a></p>
 								</div>
 							</div>
 						</div>
@@ -156,7 +157,7 @@
 									<p>A small river named Duden flows by their place and supplies it with the necessary
 										regelialia. It is a paradisematic country.</p>
 
-									<p><a href="#" class="btn btn-primary px-5 py-3 mt-3">Shop Now</a></p>
+									<p><a th:href="@{/shop}" class="btn btn-primary px-5 py-3 mt-3">Shop Now</a></p>
 								</div>
 							</div>
 						</div>
@@ -383,7 +384,7 @@
 						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
 							there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
 							Semantics, a large language ocean.</p>
-						<p><a href="#" class="btn btn-white px-4 py-3">Shop now</a></p>
+						<p><a th:href="@{/shop}" class="btn btn-white px-4 py-3">Shop now</a></p>
 					</div>
 				</div>
 			</div>
@@ -398,7 +399,7 @@
 						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
 							there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
 							Semantics, a large language ocean.</p>
-						<p><a href="#" class="btn btn-white px-4 py-3">Shop now</a></p>
+						<p><a th:href="@{/shop}" class="btn btn-white px-4 py-3">Shop now</a></p>
 					</div>
 				</div>
 			</div>
