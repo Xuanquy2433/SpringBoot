@@ -199,6 +199,7 @@
                                                     th:field="*{name}">
                                                 <span class="error" th:if="${#fields.hasErrors('name')}">Name is
                                                     required</span>
+                                                    <!-- <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Full name error</span> -->
                                             </div>
                                         </div>
                                         <!-- <div class="col-md-3 px-md-1">

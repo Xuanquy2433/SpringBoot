@@ -11,6 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
 
@@ -22,9 +27,13 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 50, nullable = false)
     private int categoryId;
+    
+    @NotEmpty(message = "Category name is required")
+    // @Length(min = 3, max = 50, message = "Category name must be between 3 and 50 characters")
     @Column(length = 200, nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = { CascadeType.ALL })
+    // @Valid
     Set<Products> products;
 }

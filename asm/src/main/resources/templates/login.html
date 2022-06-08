@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Dawn - Login</title>
@@ -107,15 +107,25 @@
 
                     <li class="nav-item"><a th:href="@{/login}" style="font-size: 13px;" class="nav-link"><i
                                 class="fa-solid fa-user"></i></a>
-                    <li class="nav-item"><a href="" style="font-size: 13px;" class="nav-link">Hi, ${name} </a>
 
 
+                    <li class="nav-item">
+                        <a th:if="${session.username}" style="font-size: 13px;" class="nav-link" th:href="@{/shop}">
+                            <span th:text="'Hi, ' + ${session.showName}"> </span>
+                        </a>
                     </li>
 
-                    <form method="get" action="./LogoutController" class="nav-item"><button
+                    <div th:if="${session.username}" class="nav-item"><a th:href="@{/logout}"
                             style="font-size: 13px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer"
-                            class="nav-link"> Đăng xuất </button>
-                    </form>
+                            class="nav-link"> Đăng xuất </a>
+                    </div>
+
+                    <!-- 
+                    <a th:if="${session.username}" class="nav-item" th:href="@{/shop}"> <span
+                            th:text="'hi: ' + ${session.username}"> </span>
+                        <a th:href="@{/logout}">Logout</a>
+                    </a> -->
+
             </div>
         </div>
     </nav>
@@ -140,14 +150,16 @@
                     <div class="slider-tab"></div>
                 </div>
                 <div class="form-inner">
-                    <form method="post" action="UserController" class="login">
+                    <form th:action="@{/login}" th:object="${account}" method="post" class="login">
                         <div class="field">
-                            <input type="text" style="font-size: 16px;" name="usernameLogin" placeholder="Username"
-                                required>
+                            <input type="text" th:field="*{username}" style="font-size: 16px;" name="usernameLogin"
+                                placeholder="Username" required>
+                            <span class="error" th:if="${#fields.hasErrors('username')}"> username is required</span>
                         </div>
                         <div class="field">
-                            <input type="password" style="font-size: 16px;" name="passwordLogin" placeholder="Password"
-                                required>
+                            <input type="password" th:field="*{password}" style="font-size: 16px;" name="passwordLogin"
+                                placeholder="Password" required>
+                            <span class="error" th:if="${#fields.hasErrors('password')}"> password is required</span>
                         </div>
                         <div class="pass-link">
                             <a style="font-size: 16px;" href="#">Forgot password?</a>

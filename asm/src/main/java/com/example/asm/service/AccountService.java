@@ -80,4 +80,6 @@ public interface AccountService {
 
     // String toString();
 
+    Account checkLogin(String username, String password);
+
 }

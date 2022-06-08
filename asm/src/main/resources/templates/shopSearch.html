@@ -89,49 +89,59 @@
             </div>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" th:href="@{/}">Dawn</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar"
+    style="border: 1px solid #ddd;    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Dawn</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
 
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a style="font-size: 13px;" th:href="@{/}" class="nav-link">Home</a></li>
-                    <li class="nav-item dropdown active">
-                        <a style="font-size: 13px;" class="nav-link dropdown-toggle" href="#" id="dropdown04"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown04">
-                            <a class="dropdown-item" th:href="@{/shop}"> Shop</a>
-                            <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                            <a class="dropdown-item" href="cart.jsp">Cart</a>
-                            <a class="dropdown-item" href="checkout.jsp">Checkout</a>
-                        </div>
-                    </li>
-                    <li class="nav-item"><a href="about.jsp" style="font-size: 13px;" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="blog.jsp" style="font-size: 13px;" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="contact.jsp" style="font-size: 13px;" class="nav-link">Contact</a>
-                    </li>
-                    <li class="nav-item cta cta-colored"><a style="font-size: 13px;" href="cart.jsp"
-                            class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a style="font-size: 13px;" th:href="@{/}" class="nav-link">Home</a></li>
+                <li class="nav-item dropdown active">
+                    <a style="font-size: 13px;" class="nav-link dropdown-toggle" href="#" id="dropdown04"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown04">
+                        <a class="dropdown-item" th:href="@{/shop}"> Shop</a>
+                        <a class="dropdown-item" href="product-single.jsp">Single Product</a>
+                        <a class="dropdown-item" href="cart.jsp">Cart</a>
+                        <a class="dropdown-item" href="checkout.jsp">Checkout</a>
+                    </div>
+                </li>
+                <li class="nav-item"><a href="about.jsp" style="font-size: 13px;" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="blog.jsp" style="font-size: 13px;" class="nav-link">Blog</a></li>
+                <li class="nav-item"><a href="contact.jsp" style="font-size: 13px;" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item cta cta-colored"><a style="font-size: 13px;" href="cart.jsp"
+                        class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
-                    <li class="nav-item"><a th:href="@{/login}" style="font-size: 13px;" class="nav-link"><i
-                                class="fa-solid fa-user"></i></a>
-                    <li class="nav-item"><a href="" style="font-size: 13px;" class="nav-link">Hi, ${name} </a>
+                <li class="nav-item"><a th:href="@{/login}" style="font-size: 13px;" class="nav-link"><i
+                            class="fa-solid fa-user"></i></a>
 
 
-                    </li>
+                <li class="nav-item">
+                    <a th:if="${session.username}" style="font-size: 13px;" class="nav-link" th:href="@{/shop}">
+                        <span th:text="'Hi, ' + ${session.showName}"> </span>
+                    </a>
+                </li>
 
-                    <form method="get" action="./LogoutController" class="nav-item"><button
-                            style="font-size: 13px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer"
-                            class="nav-link"> Đăng xuất </button>
-                    </form>
-            </div>
+                <div th:if="${session.username}" class="nav-item"><a th:href="@{/logout}"
+                        style="font-size: 13px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer"
+                        class="nav-link"> Đăng xuất </a>
+                </div>
+
+                <!-- 
+                <a th:if="${session.username}" class="nav-item" th:href="@{/shop}"> <span
+                        th:text="'hi: ' + ${session.username}"> </span>
+                    <a th:href="@{/logout}">Logout</a>
+                </a> -->
+
         </div>
-    </nav>
-
+    </div>
+</nav>
     <!-- END nav -->
 
     <div class="hero-wrap hero-bread" th:style="'background-image:url('+ @{/images/bg_6.jpg} +');'">

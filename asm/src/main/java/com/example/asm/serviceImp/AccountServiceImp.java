@@ -19,6 +19,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountServiceImp implements AccountService {
 
+    public Account checkLogin(String username, String password) {
+        return accountRepository.checkLogin(username, password);
+    }
+
     @Autowired
     AccountRepository accountRepository;
 

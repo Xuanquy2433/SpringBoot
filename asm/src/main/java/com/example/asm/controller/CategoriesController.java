@@ -100,6 +100,24 @@ public class CategoriesController {
 
     }
 
+    // @PostMapping("categories/create")
+    // public String createCategoriesPost(Model model, @Valid @ModelAttribute("category") Category category,
+    //         BindingResult result, RedirectAttributes redirectAttributes) {
+    //     if (result.hasErrors()) {
+    //         // đẩy lại view và đưa ra thông báo lỗi
+    //         System.out.println("CO EROR");
+    //         return "admin/form/createCategories";
+    //     } else {
+
+    //     // Category copy = new Category();
+    //     // BeanUtils.copyProperties(dto, copy);
+    //     // System.out.println("copy: " + copy);
+    //     categoryService.save(category);
+    //     redirectAttributes.addFlashAttribute("success", "Add succsess");
+    //     return "redirect:/dashboard/categories";
+    //     }
+    // }
+
     // delete categories
     @GetMapping("categories/remove/{id}")
     public String delete(
