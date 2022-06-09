@@ -134,18 +134,18 @@
                     <div class="dropdown-menu" aria-labelledby="dropdown04">
                         <a class="dropdown-item" th:href="@{/shop}"> Shop</a>
                         <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                        <a class="dropdown-item" href="cart.jsp">Cart</a>
-                        <a class="dropdown-item" href="checkout.jsp">Checkout</a>
+                        <a class="dropdown-item" th:href="@{/cart}">Cart</a>
+                        <a class="dropdown-item" th:href="@{/checkout}">Checkout</a>
                     </div>
                 </li>
                 <li class="nav-item"><a href="about.jsp" style="font-size: 13px;" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="blog.jsp" style="font-size: 13px;" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="contact.jsp" style="font-size: 13px;" class="nav-link">Contact</a>
                 </li>
-                <li class="nav-item cta cta-colored"><a style="font-size: 13px;" href="cart.jsp"
+                <li class="nav-item cta cta-colored"><a style="font-size: 13px;" th:href="@{/cart}"
                         class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
-                <li class="nav-item"><a th:href="@{/login}" style="font-size: 13px;" class="nav-link"><i
+                        <li th:if="!${session.username}" class="nav-item"><a th:href="@{/login}" style="font-size: 13px;" class="nav-link"><i
                             class="fa-solid fa-user"></i></a>
 
 
@@ -161,10 +161,10 @@
                 </div>
 
                 <!-- 
-                <a th:if="${session.username}" class="nav-item" th:href="@{/shop}"> <span
-                        th:text="'hi: ' + ${session.username}"> </span>
-                    <a th:href="@{/logout}">Logout</a>
-                </a> -->
+            <a th:if="${session.username}" class="nav-item" th:href="@{/shop}"> <span
+                    th:text="'hi: ' + ${session.username}"> </span>
+                <a th:href="@{/logout}">Logout</a>
+            </a> -->
 
         </div>
     </div>

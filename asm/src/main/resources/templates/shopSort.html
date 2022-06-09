@@ -90,58 +90,57 @@
         </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar"
-    style="border: 1px solid #ddd;    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}">Dawn</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-        </button>
+        style="border: 1px solid #ddd;    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">Dawn</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a style="font-size: 13px;" th:href="@{/}" class="nav-link">Home</a></li>
-                <li class="nav-item dropdown active">
-                    <a style="font-size: 13px;" class="nav-link dropdown-toggle" href="#" id="dropdown04"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" th:href="@{/shop}"> Shop</a>
-                        <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                        <a class="dropdown-item" href="cart.jsp">Cart</a>
-                        <a class="dropdown-item" href="checkout.jsp">Checkout</a>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a style="font-size: 13px;" th:href="@{/}" class="nav-link">Home</a></li>
+                    <li class="nav-item dropdown active">
+                        <a style="font-size: 13px;" class="nav-link dropdown-toggle" href="#" id="dropdown04"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" th:href="@{/shop}"> Shop</a>
+                            <a class="dropdown-item" href="product-single.jsp">Single Product</a>
+                            <a class="dropdown-item" th:href="@{/cart}">Cart</a>
+                            <a class="dropdown-item" th:href="@{/checkout}">Checkout</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="about.jsp" style="font-size: 13px;" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="blog.jsp" style="font-size: 13px;" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.jsp" style="font-size: 13px;" class="nav-link">Contact</a>
+                    </li>
+                    <li class="nav-item cta cta-colored"><a style="font-size: 13px;" th:href="@{/cart}"
+                            class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+
+                    <li th:if="!${session.username}" class="nav-item"><a th:href="@{/login}" style="font-size: 13px;"
+                            class="nav-link"><i class="fa-solid fa-user"></i></a>
+
+                    <li class="nav-item">
+                        <a th:if="${session.username}" style="font-size: 13px;" class="nav-link" th:href="@{/shop}">
+                            <span th:text="'Hi, ' + ${session.showName}"> </span>
+                        </a>
+                    </li>
+
+                    <div th:if="${session.username}" class="nav-item"><a th:href="@{/logout}"
+                            style="font-size: 13px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer"
+                            class="nav-link"> Đăng xuất </a>
                     </div>
-                </li>
-                <li class="nav-item"><a href="about.jsp" style="font-size: 13px;" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="blog.jsp" style="font-size: 13px;" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="contact.jsp" style="font-size: 13px;" class="nav-link">Contact</a>
-                </li>
-                <li class="nav-item cta cta-colored"><a style="font-size: 13px;" href="cart.jsp"
-                        class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
-                <li class="nav-item"><a th:href="@{/login}" style="font-size: 13px;" class="nav-link"><i
-                            class="fa-solid fa-user"></i></a>
+                    <!-- 
+            <a th:if="${session.username}" class="nav-item" th:href="@{/shop}"> <span
+                    th:text="'hi: ' + ${session.username}"> </span>
+                <a th:href="@{/logout}">Logout</a>
+            </a> -->
 
-
-                <li class="nav-item">
-                    <a th:if="${session.username}" style="font-size: 13px;" class="nav-link" th:href="@{/shop}">
-                        <span th:text="'Hi, ' + ${session.showName}"> </span>
-                    </a>
-                </li>
-
-                <div th:if="${session.username}" class="nav-item"><a th:href="@{/logout}"
-                        style="font-size: 13px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer"
-                        class="nav-link"> Đăng xuất </a>
-                </div>
-
-                <!-- 
-                <a th:if="${session.username}" class="nav-item" th:href="@{/shop}"> <span
-                        th:text="'hi: ' + ${session.username}"> </span>
-                    <a th:href="@{/logout}">Logout</a>
-                </a> -->
-
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
     <!-- END nav -->
 
     <div class="hero-wrap hero-bread" th:style="'background-image:url('+ @{/images/bg_6.jpg} +');'">
@@ -170,7 +169,7 @@
                         }" type="submit"> <i class="fa-solid fa-magnifying-glass"></i> </button>
 
                 <!--<a class="btn btn-outline-secondary"  href="${pageContext.request.contextPath}/ShopController?idSearch=5"> <i class="fa-solid fa-magnifying-glass"></i></a>-->
-          
+
             </div>
         </form>
 
@@ -181,8 +180,8 @@
                         <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate" th:each="items : ${listSearch}">
                             <div class="product">
                                 <a th:href="@{'/dashboard/products/detail/' + ${items.getId()}}" class="img-prod"><img
-                                        style="height: 320px;width: 100%;" class="img-fluid" th:src="${items.getImage()}"
-                                        alt="Colorlib Template">
+                                        style="height: 320px;width: 100%;" class="img-fluid"
+                                        th:src="${items.getImage()}" alt="Colorlib Template">
                                     <span class="status">30%</span>
                                     <div class="overlay"></div>
                                 </a>
@@ -193,9 +192,9 @@
                                         <div class="pricing">
                                             <p class="price"> <span class="mr-2 price-dc">$120.00</span>
                                             </p>
-                                            <span style="color: black;" 
+                                            <span style="color: black;"
                                                 th:text="${#numbers.formatDecimal(items.getPrice(), 1, 'DEFAULT', 0, 'DEFAULT')}">$80.00</span>
-                                            <span style="color: black;" >VNĐ</span>
+                                            <span style="color: black;">VNĐ</span>
                                         </div>
                                         <div class="rating">
                                             <p class="text-right">
@@ -282,14 +281,17 @@
                                     th:text="${items.getName()}"></a></li>
                         </ul>
                     </div>
-                    <div  class="sidebar-box-2">
+                    <div class="sidebar-box-2">
                         <h2 class="heading mb-4"><a href="#">Sort</a></h2>
                         <ul>
-                            <li><a th:href="@{/dashboard/products/sortAsc}" name="button_sort_clicked" value="ButtonSort" class="sort">Sort by price <i
+                            <li><a th:href="@{/dashboard/products/sortAsc}" name="button_sort_clicked"
+                                    value="ButtonSort" class="sort">Sort by price <i
                                         class="fa-solid fa-arrow-up"></i></a></li>
-                            <li><a th:href="@{/dashboard/products/sortDesc}" name="button_sortDesc_clicked" value="ButtonSort" class="sort">Sort by price <i
+                            <li><a th:href="@{/dashboard/products/sortDesc}" name="button_sortDesc_clicked"
+                                    value="ButtonSort" class="sort">Sort by price <i
                                         class="fa-solid fa-arrow-down"></i></a></li>
-                            <li><a th:href="@{/dashboard/products/sortName}" name="button_sortName_clicked" value="ButtonSort" class="sort">Sort by name
+                            <li><a th:href="@{/dashboard/products/sortName}" name="button_sortName_clicked"
+                                    value="ButtonSort" class="sort">Sort by name
                                     A-Z</a></li>
                         </ul>
                     </div>
