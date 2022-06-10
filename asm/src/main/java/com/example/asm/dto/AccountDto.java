@@ -23,7 +23,7 @@ public class AccountDto {
     private String fullName;
     @NotEmpty
     private String email;
-    @NotEmpty
+    // @NotEmpty
     private String photo;
     private boolean activated;
     private boolean admin;

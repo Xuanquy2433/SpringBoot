@@ -1,5 +1,9 @@
 package com.example.asm.serviceImp;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -7,6 +11,7 @@ import java.util.function.Function;
 import com.example.asm.Repository.AccountRepository;
 import com.example.asm.domain.Account;
 import com.example.asm.service.AccountService;
+import com.example.asm.utils.HashPassword;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -14,13 +19,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AccountServiceImp implements AccountService {
 
+    Connection conn = DBProvider.getConnection();
+    HashPassword hashPassword = new HashPassword();
+
     public Account checkLogin(String username, String password) {
-        return accountRepository.checkLogin(username, password);
+        return accountRepository.checkLogin(username, hashPassword.encrypt(password));
     }
 
     @Autowired
@@ -91,6 +100,19 @@ public class AccountServiceImp implements AccountService {
     }
 
     public <S extends Account> S save(S entity) {
+        entity.setPassword(hashPassword.encrypt(entity.getPassword()));
+        return accountRepository.save(entity);
+    }
+
+    public <S extends Account> S saveUpdate(S entity) {
+        entity.setPassword(hashPassword.decrypt(entity.getPassword()));
+        return accountRepository.save(entity);
+    }
+
+    public <S extends Account> S saveLogin(S entity) {
+        entity.setPassword(hashPassword.encrypt(entity.getPassword()));
+        entity.setPhoto("https://www.w3schools.com/howto/img_avatar.png");
+        entity.setActivated(true);
         return accountRepository.save(entity);
     }
 
@@ -146,19 +168,167 @@ public class AccountServiceImp implements AccountService {
         return accountRepository.findBy(example, queryFunction);
     }
 
+    public boolean isExist(String username) {
+        try {
+
+            String sql = "SELECT * FROM accounts where username = ? ";
+            PreparedStatement pst = conn.prepareCall(sql);
+            pst.setString(1, username);
+
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.err.println(ex.getMessage());
+
+        }
+        return false;
+    }
+
+    public boolean isExistAccountForget(String username, String email) {
+        try {
+            String sql = "SELECT * FROM accounts where username = ? and email = ? ";
+            PreparedStatement pst = conn.prepareCall(sql);
+            pst.setString(1, username);
+            pst.setString(2, email);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.err.println(ex.getMessage());
+
+        }
+        return false;
+    }
+
+    public boolean updateAccountForget(String password, String username) {
+        try {
+            String sql = "UPDATE accounts SET password =  ? where username = ? ";
+            PreparedStatement pst = conn.prepareCall(sql);
+            // pst.setString(1, hashPassword.encrypt("123456"));
+            pst.setString(1, password);
+            pst.setString(2, username);
+
+            int rs = pst.executeUpdate();
+            if (rs > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void updateForget(String password, String username) {
+        String sqlUpdate = "UPDATE accounts "
+                + "SET password = ? "
+                + "WHERE username = ?";
+
+        try (
+                PreparedStatement pstmt = conn.prepareStatement(sqlUpdate)) {
+
+            // prepare data for update
+
+            pstmt.setString(1, hashPassword.encrypt(password));
+            pstmt.setString(2, username);
+
+            int rowAffected = pstmt.executeUpdate();
+            System.out.println(String.format("Row affected %d", rowAffected));
+
+            pstmt.setString(1, hashPassword.encrypt(password));
+            pstmt.setString(2, username);
+
+            rowAffected = pstmt.executeUpdate();
+            System.out.println(String.format("Row affected %d", rowAffected));
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public String codeRandom(int n) {
+
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index = (int) (AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+
+        return sb.toString();
+    }
+
+    // public String name(String username, String password) {
+    // try {
+
+    // String sql = "SELECT * FROM user where userName = ? and password = ?";
+    // PreparedStatement pst = conn.prepareCall(sql);
+    // pst.setString(1, username);
+    // pst.setString(2, HashPassword.encrypt(password));
+
+    // ResultSet rs = pst.executeQuery();
+
+    // if (rs.next()) {
+    // return rs.getString("name");
+
+    // }
+
+    // } catch (SQLException ex) {
+    // Logger.getLogger(UserDao.class
+    // .getName()).log(Level.SEVERE, null, ex);
+
+    // }
+    // return "";
+    // }
+
+    // public String hasPass(String pass) {
+    // try {
+    // String passHass = bCryptPasswordEncoder.encode(pass);
+    // return passHass;
+    // } catch (Exception e) {
+    // return null;
+    // // TODO: handle exception
+    // }
+    // }
+
+    // public boolean comparePass (String password,String hashPass){
+
+    // }
     // @Override
     // public int hashCode() {
-    //     return accountRepository.hashCode();
+    // return accountRepository.hashCode();
     // }
 
     // @Override
     // public boolean equals(Object obj) {
-    //     return accountRepository.equals(obj);
+    // return accountRepository.equals(obj);
     // }
 
     // @Override
     // public String toString() {
-    //     return accountRepository.toString();
+    // return accountRepository.toString();
     // }
 
 }

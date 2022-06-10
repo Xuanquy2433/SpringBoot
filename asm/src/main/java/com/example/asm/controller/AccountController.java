@@ -63,7 +63,6 @@ public class AccountController {
             System.out.println("CO EROR");
             return "admin/form/createAccounts";
         }
-     
 
         Account copy = new Account();
         // copy.setActivated(dto.get);

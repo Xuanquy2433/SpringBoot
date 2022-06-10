@@ -67,6 +67,8 @@ public interface AccountService {
     Account getOne(String id);
 
     <S extends Account> S save(S entity);
+    <S extends Account> S saveLogin(S entity);
+    <S extends Account> S saveUpdate(S entity);
 
     <S extends Account> List<S> saveAll(Iterable<S> entities);
 
@@ -81,5 +83,116 @@ public interface AccountService {
     // String toString();
 
     Account checkLogin(String username, String password);
+
+    boolean isExist(String username);
+    // public String hasPass(String pass) {
+    //     try {
+    //         String passHass = bCryptPasswordEncoder.encode(pass);
+    //         return passHass;
+    //     } catch (Exception e) {
+    //         return null;
+    //         // TODO: handle exception
+    //     }
+    // }
+    // public boolean comparePass (String password,String hashPass){
+    // }
+    // @Override
+    // public int hashCode() {
+    // return accountRepository.hashCode();
+    // }
+    // @Override
+    // public boolean equals(Object obj) {
+    // return accountRepository.equals(obj);
+    // }
+    // @Override
+    // public String toString() {
+    // return accountRepository.toString();
+    // }
+
+    boolean isExistAccountForget(String username, String email);
+
+    boolean updateAccountForget(String password, String username);
+    // public String name(String username, String password) {
+    // try {
+    // String sql = "SELECT * FROM user where userName = ? and password = ?";
+    // PreparedStatement pst = conn.prepareCall(sql);
+    // pst.setString(1, username);
+    // pst.setString(2, HashPassword.encrypt(password));
+    // ResultSet rs = pst.executeQuery();
+    // if (rs.next()) {
+    // return rs.getString("name");
+    // }
+    // } catch (SQLException ex) {
+    // Logger.getLogger(UserDao.class
+    // .getName()).log(Level.SEVERE, null, ex);
+    // }
+    // return "";
+    // }
+    // public String hasPass(String pass) {
+    // try {
+    // String passHass = bCryptPasswordEncoder.encode(pass);
+    // return passHass;
+    // } catch (Exception e) {
+    // return null;
+    // // TODO: handle exception
+    // }
+    // }
+    // public boolean comparePass (String password,String hashPass){
+    // }
+    // @Override
+    // public int hashCode() {
+    // return accountRepository.hashCode();
+    // }
+    // @Override
+    // public boolean equals(Object obj) {
+    // return accountRepository.equals(obj);
+    // }
+    // @Override
+    // public String toString() {
+    // return accountRepository.toString();
+    // }
+
+    String codeRandom(int n);
+    // public String name(String username, String password) {
+    // try {
+    // String sql = "SELECT * FROM user where userName = ? and password = ?";
+    // PreparedStatement pst = conn.prepareCall(sql);
+    // pst.setString(1, username);
+    // pst.setString(2, HashPassword.encrypt(password));
+    // ResultSet rs = pst.executeQuery();
+    // if (rs.next()) {
+    // return rs.getString("name");
+    // }
+    // } catch (SQLException ex) {
+    // Logger.getLogger(UserDao.class
+    // .getName()).log(Level.SEVERE, null, ex);
+    // }
+    // return "";
+    // }
+    // public String hasPass(String pass) {
+    // try {
+    // String passHass = bCryptPasswordEncoder.encode(pass);
+    // return passHass;
+    // } catch (Exception e) {
+    // return null;
+    // // TODO: handle exception
+    // }
+    // }
+    // public boolean comparePass (String password,String hashPass){
+    // }
+    // @Override
+    // public int hashCode() {
+    // return accountRepository.hashCode();
+    // }
+    // @Override
+    // public boolean equals(Object obj) {
+    // return accountRepository.equals(obj);
+    // }
+    // @Override
+    // public String toString() {
+    // return accountRepository.toString();
+    // }
+
+    void updateForget(String password, String username);
 
 }
