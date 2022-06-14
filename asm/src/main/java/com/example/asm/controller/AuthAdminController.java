@@ -1,5 +1,7 @@
 package com.example.asm.controller;
 
+import java.util.List;
+
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -44,11 +46,24 @@ public class AuthAdminController {
     @Autowired
     private MailService mailService;
 
+    @ModelAttribute("accountRegister")
+    public AccountDto accountRegister() {
+        AccountDto accountDto = new AccountDto();
+        return accountDto;
+    }
+
+    @ModelAttribute("accountLogin")
+    public AccountLoginDto AccountLoginDto() {
+        AccountLoginDto accountLoginDto = new AccountLoginDto();
+        return accountLoginDto;
+    }
+
     @GetMapping("login")
     public String login(Model model) {
-        AccountDto accountLoginDto = new AccountDto();
-        model.addAttribute("accountss", accountLoginDto);
-
+        // AccountDto accountRegisterDto = new AccountDto();
+        // AccountLoginDto accountLoginDto = new AccountLoginDto();
+        // model.addAttribute("accountLogin", accountLoginDto);
+        // model.addAttribute("accountRegister", accountRegisterDto);
         // try {
         // SimpleMailMessage msg = new SimpleMailMessage();
         // msg.setTo("truongvan6322@gmail.com");
@@ -66,7 +81,7 @@ public class AuthAdminController {
     }
 
     @PostMapping("login/register")
-    public String createCategoriesPost(Model model, @Valid @ModelAttribute("accountss") AccountDto dto,
+    public String createCategoriesPost(Model model, @Valid @ModelAttribute("accountRegister") AccountDto dto,
             BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             // đẩy lại view và đưa ra thông báo lỗi
@@ -130,7 +145,8 @@ public class AuthAdminController {
     }
 
     @PostMapping("login")
-    public String loginPost(Model model, @Valid @ModelAttribute("account") AccountLoginDto dto, BindingResult result,
+    public String loginPost(Model model, @Valid @ModelAttribute("accountLogin") AccountLoginDto dto,
+            BindingResult result,
             RedirectAttributes redirectAttributes) {
         AccountLoginDto accountLoginDto = new AccountLoginDto();
         if (result.hasErrors()) {
@@ -154,17 +170,17 @@ public class AuthAdminController {
             } else {
                 role = "user";
                 session.setAttribute("username", check.getUsername());
+                session.setAttribute("showName", check.getFullName());
                 session.setAttribute("role", role);
                 return "redirect:/shop";
             }
 
             // session.setAttribute("username", check.getUsername());
             // session.setAttribute("role", role);
-            // if(session.getAttribute("request-url") !=null) {
-            // return "redirect:"+session.getAttribute("request-url");
+            // if (session.getAttribute("request-url") != null) {
+            // return "redirect:" + session.getAttribute("request-url");
             // }
             // return "redirect:/dashboard/home";
-
         } else if (check == null) {
             redirectAttributes.addFlashAttribute("error", "Username or password incorrect");
         }
@@ -190,18 +206,22 @@ public class AuthAdminController {
 
         if (accountService.isExistAccountForget(dto.getUsername(), dto.getEmail())) {
             System.err.println("co tai khoan");
-            String code = accountService.codeRandom(5);
+            String code = accountService.codeRandom(10);
             codeRandom = code;
             saveUserName = dto.getUsername();
             try {
                 mailService.sendAsHtml(dto.getEmail(),
                         "Confirm Password : " + dto.getEmail(),
-                        "This is your verify code please don't share anyone:  " + code);
+                        " <p style=\"color: black;font-size: 13.9px;\"> This is your verify code please don't share anyone:  </p>"
+                                + "\n" + "<h3> " + code + " </h3>"
+                                + "    <footer style=\"margin-top: 40px;background-color: rgb(34, 34, 34);color: white;padding: 5px;text-align: center;\n"
+                                + "    font-size: 14px;font-weight: 10;width: 1000px;\n"
+                                + "    \"\n"
+                                + "    >Copyright © 2022 All rights reserved | This web is made with  by xuanquy</footer>\n");
             } catch (MessagingException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
             return "redirect:/updatePassword";
         } else {
             redirectAttributes.addFlashAttribute("error", "Username or email is not exist");
@@ -225,17 +245,54 @@ public class AuthAdminController {
             System.out.println("CO EROR");
             return "updatePassword";
         }
-        System.err.println("this is code and username send   " + codeRandom + " " + saveUserName + " password is: " + dto.getPassword() + ""+ "code "+dto.getCode());
+        System.err.println("this is code and username send   " + codeRandom + " " + saveUserName + " password is: "
+                + dto.getPassword() + "" + "code " + dto.getCode());
         if (dto.getCode().equals(codeRandom)) {
 
-            accountService.updateForget(dto.getPassword(),saveUserName);
+            accountService.updateForget(dto.getPassword(), saveUserName);
 
             redirectAttributes.addFlashAttribute("registerSuccess", "Update password success");
             return "redirect:/login";
 
         } else {
-            redirectAttributes.addFlashAttribute("error", "Code is valid");
+            redirectAttributes.addFlashAttribute("error", "The authentication code is incorrect");
             return "redirect:/updatePassword";
+        }
+
+    }
+
+    @PostMapping("sendPassword")
+    public String sendPassword(Model model, @Valid @ModelAttribute("accounts") AccountForgetDto dto,
+            BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            // đẩy lại view và đưa ra thông báo lỗi
+            System.out.println("CO EROR");
+            return "sendPassword";
+        }
+        if (accountService.isExistAccountForget(dto.getUsername(), dto.getEmail())) {
+
+            String passwordForgot = accountService.getPasswordForgot(dto.getUsername(), dto.getEmail());
+
+            System.err.println("password send" + passwordForgot);
+            System.err.println("username and email send " + dto.getUsername() + " " + dto.getEmail());
+            try {
+                mailService.sendAsHtml(dto.getEmail(),
+                        "Send Password forgot : " + dto.getEmail(),
+                        " <p style=\"color: black;font-size: 13.9px;\"> This is your password please don't share anyone:  </p>"
+                                + "\n" + "<h3> " + passwordForgot + " </h3>"
+                                + "    <footer style=\"margin-top: 40px;background-color: rgb(34, 34, 34);color: white;padding: 5px;text-align: center;\n"
+                                + "    font-size: 14px;font-weight: 10;width: 1000px;\n"
+                                + "    \"\n"
+                                + "    >Copyright © 2022 All rights reserved | This web is made with  by xuanquy</footer>\n");
+            } catch (MessagingException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            redirectAttributes.addFlashAttribute("registerSuccess", "Send password success");
+            return "redirect:/login";
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Username or email is not exist");
+            return "redirect:/forgotPassword";
         }
 
     }

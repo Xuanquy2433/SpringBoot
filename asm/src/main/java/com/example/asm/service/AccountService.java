@@ -195,4 +195,29 @@ public interface AccountService {
 
     void updateForget(String password, String username);
 
+    String getPasswordForgot(String username, String email);
+    // public String hasPass(String pass) {
+    // try {
+    // String passHass = bCryptPasswordEncoder.encode(pass);
+    // return passHass;
+    // } catch (Exception e) {
+    // return null;
+    // // TODO: handle exception
+    // }
+    // }
+    // public boolean comparePass (String password,String hashPass){
+    // }
+    // @Override
+    // public int hashCode() {
+    // return accountRepository.hashCode();
+    // }
+    // @Override
+    // public boolean equals(Object obj) {
+    // return accountRepository.equals(obj);
+    // }
+    // @Override
+    // public String toString() {
+    // return accountRepository.toString();
+    // }
+
 }

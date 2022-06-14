@@ -1,5 +1,6 @@
 package com.example.asm.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,14 +9,17 @@ import javax.validation.Valid;
 import com.example.asm.domain.Category;
 import com.example.asm.domain.Products;
 import com.example.asm.dto.ProductDto;
+import com.example.asm.dto.ProductMulDto;
 import com.example.asm.dto.SearchBox;
 import com.example.asm.service.CategoryService;
+import com.example.asm.service.FileService;
 import com.example.asm.service.ProductService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -60,23 +64,32 @@ public class ProductsController {
     }
 
     @PostMapping("products/create")
-    public String createProduct(Model model, @Valid @ModelAttribute("products") ProductDto dto,
+    public String createProduct(Model model, @Valid @ModelAttribute("products") ProductMulDto dto,
             BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             // đẩy lại view và đưa ra thông báo lỗi
             System.out.println("CO EROR  " + result);
             return "admin/form/createProducts";
         }
+        String fileName = StringUtils.cleanPath(dto.getImage().getOriginalFilename());
 
         Category category = new Category();
         category.setCategoryId(dto.getCategory());
 
         Products copy = new Products();
-        copy.setCategory(category);
-        // copy.setActivated(dto.get);
         BeanUtils.copyProperties(dto, copy);
-        System.err.println("copy product : " + copy);
+        copy.setCategory(category);
+        copy.setImage(fileName);
+
+        // copy.setActivated(dto.get);
+
         productService.save(copy);
+        try {
+            FileService.saveFile("src/main/resources/static/saveImages", fileName, dto.getImage());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.err.println(ex.getMessage());
+        }
         redirectAttributes.addFlashAttribute("success", "Add succsess");
         return "redirect:/dashboard/products";
 
@@ -98,7 +111,7 @@ public class ProductsController {
 
     // edit products post
     @PostMapping("products/edit")
-    public String update(Model model, @Valid @ModelAttribute("products") ProductDto dto,
+    public String update(Model model, @Valid @ModelAttribute("products") ProductMulDto dto,
             RedirectAttributes redirectAttributes,
             BindingResult result) {
         if (result.hasErrors()) {
@@ -107,14 +120,23 @@ public class ProductsController {
             return "admin/form/editProducts";
         }
 
+        String fileName = StringUtils.cleanPath(dto.getImage().getOriginalFilename());
         Category category = new Category();
         category.setCategoryId(dto.getCategory());
 
         Products copy = new Products();
         copy.setCategory(category);
+        copy.setImage(fileName);
+
         BeanUtils.copyProperties(dto, copy);
         System.err.println("copy product : " + copy);
         productService.save(copy);
+        try {
+            FileService.saveFile("src/main/resources/static/saveImages", fileName, dto.getImage());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.err.println(ex.getMessage());
+        }
         redirectAttributes.addFlashAttribute("success", "Update succsess");
         return "redirect:/dashboard/products";
     }
@@ -170,31 +192,31 @@ public class ProductsController {
             List<ProductDto> listSearch = productService.search(search);
             model.addAttribute("listSearch", listSearch);
             model.addAttribute("size", listSearch.size());
-            model.addAttribute("nameSearch", "\""+ searchText.getSearchText() + "\"");
+            model.addAttribute("nameSearch", "\"" + searchText.getSearchText() + "\"");
             return "shopSearch";
         }
         return "redirect:dashboard/products"; // Return tên của View, model sẽ tự động pass vào view
     }
 
     @GetMapping("products/sortAsc")
-    public String sortAsc(Model model) {    
-            List<ProductDto> listSearch = productService.getListSortAsc();
-            model.addAttribute("listSearch", listSearch);
-            return "shopSort";
+    public String sortAsc(Model model) {
+        List<ProductDto> listSearch = productService.getListSortAsc();
+        model.addAttribute("listSearch", listSearch);
+        return "shopSort";
     }
 
     @GetMapping("products/sortDesc")
-    public String sortDesc(Model model) {    
-            List<ProductDto> listSearch = productService.getListSortDesc();
-            model.addAttribute("listSearch", listSearch);
-            return "shopSort";
+    public String sortDesc(Model model) {
+        List<ProductDto> listSearch = productService.getListSortDesc();
+        model.addAttribute("listSearch", listSearch);
+        return "shopSort";
     }
 
     @GetMapping("products/sortName")
-    public String sortName(Model model) {    
-            List<ProductDto> listSearch = productService.getListSortName();
-            model.addAttribute("listSearch", listSearch);
-            return "shopSort";
+    public String sortName(Model model) {
+        List<ProductDto> listSearch = productService.getListSortName();
+        model.addAttribute("listSearch", listSearch);
+        return "shopSort";
     }
 
 }

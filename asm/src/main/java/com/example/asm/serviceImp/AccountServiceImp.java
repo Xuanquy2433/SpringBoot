@@ -105,7 +105,8 @@ public class AccountServiceImp implements AccountService {
     }
 
     public <S extends Account> S saveUpdate(S entity) {
-        entity.setPassword(hashPassword.decrypt(entity.getPassword()));
+        String decrypt = hashPassword.decrypt(entity.getPassword());
+        entity.setPassword(hashPassword.encrypt(decrypt));
         return accountRepository.save(entity);
     }
 
@@ -280,28 +281,27 @@ public class AccountServiceImp implements AccountService {
         return sb.toString();
     }
 
-    // public String name(String username, String password) {
-    // try {
+    public String getPasswordForgot(String username, String email) {
+        try {
 
-    // String sql = "SELECT * FROM user where userName = ? and password = ?";
-    // PreparedStatement pst = conn.prepareCall(sql);
-    // pst.setString(1, username);
-    // pst.setString(2, HashPassword.encrypt(password));
+            String sql = "SELECT * FROM accounts where username = ? and email = ?";
+            PreparedStatement pst = conn.prepareCall(sql);
+            pst.setString(1, username);
+            pst.setString(2, email);
 
-    // ResultSet rs = pst.executeQuery();
+            ResultSet rs = pst.executeQuery();
 
-    // if (rs.next()) {
-    // return rs.getString("name");
+            if (rs.next()) {
+                return hashPassword.decrypt(rs.getString("password"));
+            }
 
-    // }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.err.println(ex.getMessage());
 
-    // } catch (SQLException ex) {
-    // Logger.getLogger(UserDao.class
-    // .getName()).log(Level.SEVERE, null, ex);
-
-    // }
-    // return "";
-    // }
+        }
+        return "";
+    }
 
     // public String hasPass(String pass) {
     // try {

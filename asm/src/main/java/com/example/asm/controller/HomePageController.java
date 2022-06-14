@@ -47,4 +47,9 @@ public class HomePageController {
         return "shop";
     }
 
+    @GetMapping("checkout")
+    public String checkout(Model model) {
+        return "checkout";
+    }
+
 }

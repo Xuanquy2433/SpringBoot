@@ -141,8 +141,8 @@
 			<div class="row">
 				<div class="col-lg-6 mb-5 ftco-animate">
 					<!-- images/menu-2.jpg -->
-					<a th:href="@{'' + ${detail.getImage()}}" class="image-popup"><img style="height: 550px;"
-							th:src="${detail.getImage()}" class="img-fluid" alt="Colorlib Template"></a>
+					<a th:href="@{'/saveImages/' +  ${detail.getImage()}}" class="image-popup"><img style="height: 550px;"
+						th:src="@{'/saveImages/' +  ${detail.getImage()}}" class="img-fluid" alt="Colorlib Template"></a>
 				</div>
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 					<h3 th:text="${detail.getName()}">Young Woman Wearing Dress</h3>
@@ -215,7 +215,7 @@
 							<p style="color: #000;">80 piece available</p>
 						</div>
 					</div>
-					<p><a href="cart.html" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+					<p><a th:href="@{'/cart/addCart/' + ${detail.getId()}}" class="btn btn-black py-3 px-5">Add to Cart</a></p>
 				</div>
 			</div>
 		</div>

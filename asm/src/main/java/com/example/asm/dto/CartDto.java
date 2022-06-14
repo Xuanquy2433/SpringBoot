@@ -1,61 +1,81 @@
 package com.example.asm.dto;
 
+import java.util.ArrayList;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CartDto {
-    private int productId;
-    private Double price;
-    private String name;
-    private int quantity;
-    private String image;
+    ArrayList<ItemDto> carts = new ArrayList<>();
 
-    public CartDto() {
+    public boolean add(ItemDto item) {
+        try {
+            // update
+            if (carts.contains(item)) {
+                ItemDto current = carts.get(carts.indexOf(item));
+                current.setSoLuong(current.getSoLuong() + 1);
+            } else {
+                // tao moi
+                carts.add(item);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public CartDto(int productId, Double price, String name, int quantity, String image) {
-        this.productId = productId;
-        this.price = price;
-        this.name = name;
-        this.quantity = quantity;
-        this.image = image;
+    public boolean remove(ItemDto item) {
+        try {
+            // kt tồn tại
+            if (carts.contains(item)) {
+                int vt = carts.indexOf(item);
+                carts.remove(vt);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public int getProductId() {
-        return productId;
+    // tính tiền
+    public double total() {
+        double sum = 0;
+        for (ItemDto cart : carts) {
+            sum += cart.getPrice() * cart.getSoLuong();
+        }
+        return sum;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
+    // lấy số lượng item trong cart
+    public int size() {
+        return carts != null ? carts.size() : 0;
     }
 
-    public Double getPrice() {
-        return price;
-    }
+    public boolean dete(ItemDto item) {
+        try {
+            if (carts.contains(item)) {
+                ItemDto currentItem = carts.get(carts.indexOf(item));
+                currentItem.setSoLuong(currentItem.getSoLuong() - 1);
+                if (currentItem.getSoLuong() == 0) {
+                    // currentItem.setSoLuong(1);
+                    carts.remove(item);
+                }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+            } else {
+                carts.remove(item);
+            }
+            return true;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

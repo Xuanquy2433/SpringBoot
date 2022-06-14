@@ -2,6 +2,7 @@ package com.example.asm.dto;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ public class AccountDto {
     @NotEmpty
     private String username;
     @NotEmpty
+    @Size(min = 3, max = 15)
     private String password;
     @NotEmpty
     private String fullName;

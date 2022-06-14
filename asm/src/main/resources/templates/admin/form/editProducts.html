@@ -190,7 +190,8 @@
                                 <h5 class="title">Create Products</h5>
                             </div>
                             <div class="card-body">
-                                <form th:action="@{/dashboard/products/edit}" th:object="${products}" method="post">
+                                <form th:action="@{/dashboard/products/edit}" th:object="${products}" method="post"
+                                    enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-5 pr-md-1">
 
@@ -233,13 +234,13 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label>Image</label>
                                                 <input type="text" th:field="*{image}" class="form-control"
                                                     placeholder="Enter image">
                                                 <span class="error" th:if="${#fields.hasErrors('image')}">Image is
                                                     required</span>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="col-md-6 pr-md-1">
                                             <div class="form-group">
@@ -247,6 +248,7 @@
                                                 <input style="width: 20px;" type="checkbox" th:field="*{available}"
                                                     name="available" th:checked="${available}" />
                                             </div>
+                                            <input type="file" th:field="*{image}" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="row">

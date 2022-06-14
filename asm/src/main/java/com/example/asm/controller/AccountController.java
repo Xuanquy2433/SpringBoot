@@ -118,7 +118,7 @@ public class AccountController {
         Account account = new Account();
         // account.setUsername(dto.getUsername());
         BeanUtils.copyProperties(dto, account);
-        accountService.save(account);
+        accountService.saveUpdate(account);
         redirAttrs.addFlashAttribute("success", "Edit succsess");
         return "redirect:/dashboard/accounts"; // Return tên của View, model sẽ tự động pass vào view
     }

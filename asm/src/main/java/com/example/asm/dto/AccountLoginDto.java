@@ -14,6 +14,6 @@ public class AccountLoginDto {
     @NotEmpty
     private String username;
     @NotEmpty
-    @Size(min = 3,max = 100)
+    // @Size(min = 3,max = 15)
     private String password;
 }
