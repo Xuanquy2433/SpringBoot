@@ -15,27 +15,61 @@
 // import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 
+// @Configuration
 // @EnableWebSecurity
 // public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//     @Autowired
-//     UserDetailsService userDetailsService;
+//     // @Autowired
+//     // UserDetailsService userDetailsService;
 
-//     @Override
-//     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//         auth.userDetailsService(userDetailsService);
+//     @Bean
+//     public UserDetailsService userDetailsService() {
+//         return new ShopUserDetailsService();
+//     }
+
+//     @Bean
+//     public PasswordEncoder passwordEncoder() {
+//         return new BCryptPasswordEncoder();
+//     }
+
+//     @Bean
+//     public PasswordEncoder PasswordEncoder() {
+//         return new BCryptPasswordEncoder();
+//     }
+
+//     @Bean
+//     public DaoAuthenticationProvider authenticationProvider() {
+//         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
+//         authProvider.setUserDetailsService(userDetailsService());
+//         authProvider.setPasswordEncoder(passwordEncoder());
+
+//         return authProvider;
 //     }
 
 //     @Override
 //     protected void configure(HttpSecurity http) throws Exception {
-//         http.authorizeRequests()
-//                 .antMatchers("/admin").hasRole("ADMIN")
-//                 .antMatchers("/user").hasAnyRole("ADMIN", "USER")
-//                 .antMatchers("/").permitAll()
-//                 .and().formLogin();
+//         http
+//                 .authorizeRequests()
+//                 .antMatchers("/admin/users/**","/admin/dashboard/**",
+//                         "/admin/category/**","/admin/brand/**","/admin/product/**").hasAuthority("admin")
+//                 .anyRequest().authenticated()
+//                 .and()
+//                 .formLogin()
+//                 .usernameParameter("email")
+//                 .loginPage("/shop/login")
+//                 .permitAll(); // To change body of generated methods, choose Tools | Templates.
 //     }
 
-//     @Bean
-//     public PasswordEncoder getPasswordEncoder() {
-//         return NoOpPasswordEncoder.getInstance();
+//     @Override
+//     public void configure(WebSecurity web) throws Exception {
+//         web.ignoring().antMatchers("/adminss/**"); // To change body of generated methods, choose Tools | Templates.
 //     }
+
+//     @Override
+//     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//         auth.authenticationProvider(authenticationProvider()); 
+//     }
+
+
+
 // }

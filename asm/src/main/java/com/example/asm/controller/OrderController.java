@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.example.asm.domain.Account;
-import com.example.asm.domain.Orders;
+import com.example.asm.domain.Order;
 import com.example.asm.dto.OrderDto;
 import com.example.asm.service.AccountService;
 import com.example.asm.service.OrderService;
@@ -33,7 +33,7 @@ public class OrderController {
     @GetMapping("orders")
     public String categories(Model model) {
 
-        List<Orders> order = orderService.findAll();
+        List<Order> order = orderService.findAll();
         model.addAttribute("orders", order);
 
         return "admin/custom/orders";
@@ -43,7 +43,7 @@ public class OrderController {
     public String createCategories(Model model) {
         System.out.println("go here create");
 
-        Orders orders = new Orders();
+        Order orders = new Order();
         model.addAttribute("orders", orders);
         List<Account> accounts = accountService.findAll();
         model.addAttribute("listAccounts", accounts);
@@ -64,7 +64,7 @@ public class OrderController {
             return "admin/form/createOrders";
         }
 
-        Orders copy = new Orders();
+        Order copy = new Order();
         
         BeanUtils.copyProperties(dto, copy);
         System.out.println("copy: " + copy);

@@ -6,28 +6,30 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <link rel="icon" type="image/png" href="../assets/img/dawn.png">
+    <link rel="icon" type="image/png" th:href="@{/../assets/img/dawn.png}">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
 
 
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="images/dawn.png" />
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
 
     <script src="https://kit.fontawesome.com/a36bda6cfe.js" crossorigin="anonymous"></script>
     <style>
@@ -43,6 +45,11 @@
         #style-1::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             background-color: #F5F5F5;
+        }
+
+        .error {
+            font-style: italic;
+            color: red;
         }
     </style>
 </head>
@@ -72,61 +79,61 @@
         </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar"
-    style="border: 1px solid #ddd;    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}">Dawn</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-        </button>
+        style="border: 1px solid #ddd;    box-shadow: 0px 5px 10px rgba(0,0,0,0.1);">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">Dawn</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
 
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a style="font-size: 13px;" th:href="@{/}" class="nav-link">Home</a></li>
-                <li class="nav-item dropdown active">
-                    <a style="font-size: 13px;" class="nav-link dropdown-toggle" href="#" id="dropdown04"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown04">
-                        <a class="dropdown-item" th:href="@{/shop}"> Shop</a>
-                        <a class="dropdown-item" href="product-single.jsp">Single Product</a>
-                        <a class="dropdown-item" th:href="@{/cart}">Cart</a>
-                        <a class="dropdown-item" th:href="@{/checkout}">Checkout</a>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a style="font-size: 13px;" th:href="@{/}" class="nav-link">Home</a></li>
+                    <li class="nav-item dropdown active">
+                        <a style="font-size: 13px;" class="nav-link dropdown-toggle" href="#" id="dropdown04"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown04">
+                            <a class="dropdown-item" th:href="@{/shop}"> Shop</a>
+                            <a class="dropdown-item" href="product-single.jsp">Single Product</a>
+                            <a class="dropdown-item" th:href="@{/cart}">Cart</a>
+                            <a class="dropdown-item" th:href="@{/checkout}">Checkout</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a href="about.jsp" style="font-size: 13px;" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="blog.jsp" style="font-size: 13px;" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.jsp" style="font-size: 13px;" class="nav-link">Contact</a>
+                    </li>
+                    <li class="nav-item cta cta-colored"><a style="font-size: 13px;" th:href="@{/cart}"
+                            class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+
+                    <li th:if="!${session.username}" class="nav-item"><a th:href="@{/login}" style="font-size: 13px;"
+                            class="nav-link"><i class="fa-solid fa-user"></i></a>
+
+
+                    <li class="nav-item">
+                        <a th:if="${session.username}" style="font-size: 13px;" class="nav-link" th:href="@{/shop}">
+                            <span th:text="'Hi, ' + ${session.showName}"> </span>
+                        </a>
+                    </li>
+
+                    <div th:if="${session.username}" class="nav-item"><a th:href="@{/logout}"
+                            style="font-size: 13px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer"
+                            class="nav-link"> Đăng xuất </a>
                     </div>
-                </li>
-                <li class="nav-item"><a href="about.jsp" style="font-size: 13px;" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="blog.jsp" style="font-size: 13px;" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="contact.jsp" style="font-size: 13px;" class="nav-link">Contact</a>
-                </li>
-                <li class="nav-item cta cta-colored"><a style="font-size: 13px;" th:href="@{/cart}"
-                        class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
 
-                        <li th:if="!${session.username}" class="nav-item"><a th:href="@{/login}" style="font-size: 13px;" class="nav-link"><i
-                            class="fa-solid fa-user"></i></a>
-
-
-                <li class="nav-item">
-                    <a th:if="${session.username}" style="font-size: 13px;" class="nav-link" th:href="@{/shop}">
-                        <span th:text="'Hi, ' + ${session.showName}"> </span>
-                    </a>
-                </li>
-
-                <div th:if="${session.username}" class="nav-item"><a th:href="@{/logout}"
-                        style="font-size: 13px;background: #ffffff;border: 1px solid #ffffff;cursor: pointer"
-                        class="nav-link"> Đăng xuất </a>
-                </div>
-
-                <!-- 
+                    <!-- 
             <a th:if="${session.username}" class="nav-item" th:href="@{/shop}"> <span
                     th:text="'hi: ' + ${session.username}"> </span>
                 <a th:href="@{/logout}">Logout</a>
             </a> -->
 
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
     <!-- END nav -->
 
-    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_6.jpg');">
+    <div class="hero-wrap hero-bread" th:style="'background-image:url('+ @{/images/bg_6.jpg} +');'">
         <div class="container">
             <div class="row no-gutters slider-text align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
@@ -143,60 +150,75 @@
             <div class="row">
                 <div class="col-md-12 ftco-animate">
                     <div class="cart-list">
+                        <div class="alert alert-primary" role="alert" th:text="${success}" th:if="${success}"></div>
+                        <!-- <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div> -->
+                        <a th:href="@{'/shop'}">Keep buying</a> </br>
+
                         <h4>Thông tin thanh toán</h4>
                         <table class="table">
                             <thead class="thead-primary">
                                 <tr class="text-center">
-                                    <th>&nbsp;</th>
-
-                                    <th>Product</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col"></th>
                                 </tr>
 
 
                             </thead>
-                            <tbody>
+                            <tbody th:if="${session.cart != null}">
 
-                                <tr class="text-center">
-                                    <!--<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>-->
-                                    <td style="width: 8%;" class="image-prod">
-                                        <img style="width: 100%;height: 70px;"
-                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbRta_uKp41D578xX8qjWXzzFbPRcDy6XxO574IcKYpxOZ-qD5bBBD2bv6aWsybUKmeRA&usqp=CAU"
-                                            class="img">
-                                    </td>
+                                <tr th:each="item: ${session.cart.getCarts()}" class="text-center">
+                                
+
+                                    <td th:text="${item.getMaSp()}">1</td>
 
 
                                     <td class="product-name">
-                                        <h3>
-                                            title
+                                        <h3 th:text="${item.title}">
+
                                         </h3>
-                                        <p>Far far away, behind the word mountains, far from the countries</p>
+
+                                    </td>
+                                    <td style="width: 8%;" class="image-prod">
+                                        <img style="width: 100%;height: 70px;"
+                                            th:src="@{'/saveImages/'+${item.getImage()}}" class="img">
                                     </td>
 
-                                    <td class="price">
-                                        price
-                                    </td>
+                                    <td class="price"
+                                        th:text=" ${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')}">
+                                        3131</td>
 
-                                    <td class="quantity">
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="quantity"
-                                                class="quantity form-control input-number" min="1" max="100">
-                                        </div>
-                                    </td>
+                                    <td th:text="${item.soLuong}">31313</td>
 
-                                    <td class="total">
-                                        total VNĐ
-                                    </td>
+
+                                    <td class="total"
+                                        th:text=" ${#numbers.formatDecimal(item.price* item.soLuong, 1, 'DEFAULT', 0, 'DEFAULT')}">
+                                        3131313</td>
 
                                 </tr>
 
 
                             </tbody>
+                            <tbody th:unless="${session.cart != null}">
+                                <tr>
+                                    <td colspan='6'>Chưa có sản phẩm nào trong giỏ hàng</td>
+                                </tr>
+
+                            </tbody>
                         </table>
+
+                    </div>
+                    <div style="text-align: right;margin-top: 10px;">
+                        <span style="text-align: right;color: black;font-weight: 700;">Total: </span>
+                        <span style="text-align: right;"
+                            th:text=" ${#numbers.formatDecimal(session.cart.total, 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
                     </div>
                 </div>
+
             </div>
     </section>
 
@@ -205,24 +227,30 @@
             <div class="row justify-content-center">
                 <div class="col-xl-8 ftco-animate">
 
-                    <form action="CheckoutController" method="post">
+                    <form th:action="@{/cart/checkout}" th:object="${order}" method="POST">
                         <h3 class="mb-4 billing-heading">Billing Details</h3>
                         <div class="row align-items-end">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="firstname">Firt Name</label>
-                                    <input name="customerName" type="text" class="form-control" placeholder="">
+                                    <label for="exampleInputEmail1" class="form-label">Name to</label>
+                                    <input type="text" class="form-control" th:field="*{customerName}"
+                                        name="customerName" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    <span class="error" th:if="${#fields.hasErrors('customerName')}"> CustomerName is
+                                        required</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="lastname">Last Name</label>
-                                    <input type="text" name="customerNameLast" class="form-control" placeholder="">
+                                    <label for="exampleInputPassword1" class="form-label">Address</label>
+                                    <input type="text" name="address" th:field="*{address}" class="form-control"
+                                        id="exampleInputPassword1">
+                                    <span class="error" th:if="${#fields.hasErrors('address')}"> Address is
+                                        required</span>
                                 </div>
                             </div>
                             <div class="w-100"></div>
                             <div class="col-md-12">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="country">State / Country</label>
                                     <div class="select-wrap">
                                         <div class="icon"><span class="ion-ios-arrow-down"></span></div>
@@ -233,22 +261,38 @@
                                             <option value="">Swizer land</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="w-100"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="streetaddress">Street Address</label>
-                                    <input type="text" name="addressShip" class="form-control"
-                                        placeholder="House number and street name">
+                                    <label for="exampleInputPassword1" class="form-label">Phone</label>
+                                    <input type="phone" th:field="*{phone}" name="phone" class="form-control"
+                                        id="exampleInputPassword1" laceholder="Phone Number" />
+                                    <span class="error" th:if="${#fields.hasErrors('phone')}">
+
+                                        Phone is required</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="streetaddress">Phone Number</label>
-                                    <input type="number" name="phone" class="form-control" placeholder="Phone Number">
+                                    <label for="exampleInputPassword1" class="form-label">Note</label>
+                                    <input type="note" th:field="*{note}" name="note" class="form-control"
+                                        id="exampleInputPassword1">
+                                    <span class="error" th:if="${#fields.hasErrors('note')}">
+                                        Note is required</span>
                                 </div>
                             </div>
+
+                            <!-- <div class="col-md-6">
+                                <input class="form-check-input" checked type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    COD(trả bằng tiền mặt khi nhận hàng)
+                                </label>
+                                <input type="hidden" name="total" value="<?= $total ?>" />
+                            </div> -->
+
+
                             <div class="w-100"></div>
 
                             <div class="w-100"></div>
@@ -284,7 +328,8 @@
                                     <hr>
                                     <p class="d-flex total-price">
                                         <span>Total</span>
-                                        <span>$17.60</span>
+                                        <span th:text=" ${#numbers.formatDecimal(session.cart.total, 1, 'DEFAULT', 0, 'DEFAULT')} ">$17.60</span>
+                                       
                                     </p>
                                 </div>
                             </div>
@@ -427,23 +472,23 @@
         </svg></div>
 
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/bootstrap-datepicker.js"></script>
-    <script src="js/scrollax.min.js"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.easing.1.3.js}"></script>
+    <script th:src="@{/js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/js/jquery.stellar.min.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+    <script th:src="@{/js/aos.js}"></script>
+    <script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+    <script th:src="@{/js/bootstrap-datepicker.js}"></script>
+    <script th:src="@{/js/scrollax.min.js}"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-    <script src="js/google-map.js"></script>
-    <script src="js/main.js"></script>
+        th:src="@{/https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false}"></script>
+    <script th:src="@{/js/google-map.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
 
 </body>
 

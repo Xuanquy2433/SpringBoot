@@ -10,6 +10,7 @@ import com.example.asm.domain.Category;
 import com.example.asm.domain.Products;
 import com.example.asm.dto.ProductDto;
 import com.example.asm.dto.ProductMulDto;
+import com.example.asm.dto.QuantityDto;
 import com.example.asm.dto.SearchBox;
 import com.example.asm.service.CategoryService;
 import com.example.asm.service.FileService;
@@ -163,6 +164,9 @@ public class ProductsController {
         if (id != 0) {
             Products detail = productService.getById(id);
             model.addAttribute("detail", detail);
+            QuantityDto quantityDto = new QuantityDto();
+
+            model.addAttribute("getQuantity", quantityDto);
             return "product-single";
         }
         return "redirect:dashboard/products"; // Return tên của View, model sẽ tự động pass vào view

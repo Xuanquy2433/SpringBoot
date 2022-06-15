@@ -29,6 +29,27 @@ public class CartDto {
         }
     }
 
+    public boolean add(ItemDto item, int so) {
+        try {
+            System.out.println("id" + item.getMaSp());
+            if (carts.contains(item)) {
+                // item hien tai
+                System.out.println("go here for update");
+                ItemDto currentItem = carts.get(carts.indexOf(item));
+                currentItem.setSoLuong(currentItem.getSoLuong() + so);
+                // update
+            } else {
+                System.out.println("go here for create");
+                carts.add(item);
+                // add
+            }
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public boolean remove(ItemDto item) {
         try {
             // kt tồn tại

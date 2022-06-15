@@ -7,6 +7,7 @@ import javax.annotation.Generated;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,8 +45,13 @@ public class Account implements Serializable {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "accounts", cascade = { CascadeType.ALL })
-    Set<Account> accounts;
+    @OneToMany(mappedBy = "account",  fetch = FetchType.LAZY,cascade = { CascadeType.ALL })
+    Set<Order> orders;
+
+
+    
+
+
     // Set<Orders> orders;
 
 }

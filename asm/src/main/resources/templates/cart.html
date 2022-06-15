@@ -159,74 +159,82 @@
 
 
                             </thead>
-                            <div th:if="${session.cart.getCarts() != null}">
-                                <tbody th:each="item: ${session.cart.getCarts()}">
-                                    <div>
-                                        <tr class="text-center">
+                            <div>
+                                <!-- th:if="${session.cart.getCarts() != null}" -->
+                                <tbody th:if="${session.cart != null}">
+                                    <tr th:each="item: ${session.cart.getCarts()}" class="text-center">
+                                        <div>
+                                            <input type="hidden" name="id" />
+                                            <td>
+
+                                                <a th:href="@{'/cart/removeCart/' + ${item.getMaSp()}}"><button
+                                                        style="background-color: whitesmoke; width: 50px;cursor: pointer;border-radius: 50%;"
+                                                        type="submit" name="cart"><span
+                                                            class="ion-ios-close"></span></button></a>
+
+                                            </td>
+                                        </div>
+                                        <td style="width: 8%;" class="image-prod">
+                                            <img style="width: 100%;height: 70px;"
+                                                th:src="@{'/saveImages/'+${item.getImage()}}" class="img">
+                                        </td>
+                                        <!--<td class="image-prod"> <img src="<%= item.getImage()%>" alt="alt"/> </td>-->
+
+                                        <td class="product-name">
+                                            <h3 th:text="${item.title}">
+
+                                            </h3>
+                                            <p>Far far away, behind the word mountains, far from the countries</p>
+                                        </td>
+
+                                        <td class="price">
+                                            <p
+                                                th:text="${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')}">
+                                                price</p>
+                                        </td>
+
+                                        <td class="quantity">
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="quantity" th:value="${item.soLuong}"
+                                                    class="quantity form-control input-number" min="1" max="100">
+                                            </div>
+                                        </td>
+
+                                        <td class="total"
+                                            th:text="${#numbers.formatDecimal(item.soLuong * item.price, 1, 'DEFAULT', 0, 'DEFAULT')}">
+
+                                        </td>
+
+                                        <td>
                                             <div>
                                                 <input type="hidden" name="id" />
-                                                <td>
-
-                                                    <a th:href="@{'/cart/removeCart/' + ${item.getMaSp()}}"><button
-                                                            style="background-color: whitesmoke; width: 50px;cursor: pointer;border-radius: 50%;"
-                                                            type="submit" name="cart"><span
-                                                                class="ion-ios-close"></span></button></a>
-
-                                                </td>
+                                                <a th:href="@{'/cart/addCart/' + ${item.getMaSp()}}">
+                                                    <button
+                                                        style="background-color: whitesmoke; width: 50px;cursor: pointer;border-radius: 50%;"
+                                                        name="cart" value="add">
+                                                        <small style="font-size: 19px;">+</small> </button>
+                                                </a>
                                             </div>
-                                            <td style="width: 8%;" class="image-prod">
-                                                <img style="width: 100%;height: 70px;"
-                                                    th:src="@{'/saveImages/'+${item.getImage()}}" class="img">
-                                            </td>
-                                            <!--<td class="image-prod"> <img src="<%= item.getImage()%>" alt="alt"/> </td>-->
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input type="hidden" name="id" />
+                                                <a th:href="@{'/cart/delete/' + ${item.getMaSp()}}">
+                                                    <button
+                                                        style="background-color: whitesmoke; width: 50px;cursor: pointer;border-radius: 50%;"
+                                                        type="submit" name="cart" value="remove">
+                                                        <small style="font-size: 29px;">-</small> </button>
+                                                </a>
+                                            </div>
 
-                                            <td class="product-name">
-                                                <h3 th:text="${item.title}">
+                                        </td>
+                                    </tr>
 
-                                                </h3>
-                                                <p>Far far away, behind the word mountains, far from the countries</p>
-                                            </td>
 
-                                            <td class="price" th:text="${item.price}">
-                                                <p>price</p>
-                                            </td>
 
-                                            <td class="quantity">
-                                                <div class="input-group mb-3">
-                                                    <input type="text" name="quantity" th:value="${item.soLuong}"
-                                                        class="quantity form-control input-number" min="1" max="100">
-                                                </div>
-                                            </td>
 
-                                            <td class="total" th:text="${item.soLuong * item.price}">
 
-                                            </td>
 
-                                            <td>
-                                                <div>
-                                                    <input type="hidden" name="id" />
-                                                    <a th:href="@{'/cart/addCart/' + ${item.getMaSp()}}">
-                                                        <button
-                                                            style="background-color: whitesmoke; width: 50px;cursor: pointer;border-radius: 50%;"
-                                                            name="cart" value="add">
-                                                            <small>+</small> </button>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <input type="hidden" name="id" />
-                                                    <a th:href="@{'/cart/delete/' + ${item.getMaSp()}}">
-                                                        <button
-                                                            style="background-color: whitesmoke; width: 50px;cursor: pointer;border-radius: 50%;"
-                                                            type="submit" name="cart" value="remove">
-                                                            <small>x</small> </button>
-                                                    </a>
-                                                </div>
-
-                                            </td>
-                                        </tr>
-                                    </div>
                                     <!--                                <tr class="text-center">
                                                                                 <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
                                             
@@ -249,12 +257,31 @@
                                                                                 <td class="total">$15.70</td>
                                                                             </tr> END TR-->
                                 </tbody>
+
+                                <tbody th:unless="${session.cart != null}">
+                                    <tr>
+                                        <td colspan='9'>Chưa có sản phẩm nào trong giỏ hàng</td>
+                                    </tr>
+
+                                </tbody>
                             </div>
                         </table>
+
                     </div>
                 </div>
             </div>
-            <p style="margin-top: 50px" class="text-center"><a href="CheckoutController"
+            <div style="text-align: right;margin-top: 10px;">
+                <span style="text-align: right;color: black;font-weight: 700;">Total: </span>
+                <span style="text-align: right;" th:if="${session.cart != null}"
+                    th:text=" ${#numbers.formatDecimal(session.cart.total, 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
+
+                <span style="text-align: right;" th:unless="${session.cart != null}">0</span>
+
+                <p style="margin-top: 10px;font-size: 11px;"><a class="btn btn-primary py-1 px-2"
+                        th:href="@{'/shop'}">Keep buying</a></p>
+            </div>
+
+            <p style="margin-top: 50px" class="text-center"><a th:href="@{'/cart/checkout'}"
                     class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
 
 

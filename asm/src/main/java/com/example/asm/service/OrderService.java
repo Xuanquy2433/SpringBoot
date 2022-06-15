@@ -1,7 +1,7 @@
 package com.example.asm.service;
 
 import com.example.asm.Repository.OrderRespository;
-import com.example.asm.domain.Orders;
+import com.example.asm.domain.Order;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -11,20 +11,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface OrderService {
-
-
 
     long count();
 
-    <S extends Orders> long count(Example<S> example);
+    <S extends Order> long count(Example<S> example);
 
-    void delete(Orders entity);
+    void delete(Order entity);
 
     void deleteAll();
 
-    void deleteAll(Iterable<? extends Orders> entities);
+    void deleteAll(Iterable<? extends Order> entities);
 
     void deleteAllById(Iterable<? extends Integer> ids);
 
@@ -32,54 +32,57 @@ public interface OrderService {
 
     void deleteAllInBatch();
 
-    void deleteAllInBatch(Iterable<Orders> entities);
+    void deleteAllInBatch(Iterable<Order> entities);
 
     void deleteById(Integer id);
 
-    void deleteInBatch(Iterable<Orders> entities);
+    void deleteInBatch(Iterable<Order> entities);
 
     boolean equals(Object obj);
 
-    <S extends Orders> boolean exists(Example<S> example);
+    <S extends Order> boolean exists(Example<S> example);
 
     boolean existsById(Integer id);
 
-    List<Orders> findAll();
+    List<Order> findAll();
 
-    <S extends Orders> List<S> findAll(Example<S> example);
+    <S extends Order> List<S> findAll(Example<S> example);
 
-    <S extends Orders> Page<S> findAll(Example<S> example, Pageable pageable);
+    <S extends Order> Page<S> findAll(Example<S> example, Pageable pageable);
 
-    <S extends Orders> List<S> findAll(Example<S> example, Sort sort);
+    <S extends Order> List<S> findAll(Example<S> example, Sort sort);
 
-    Page<Orders> findAll(Pageable pageable);
+    Page<Order> findAll(Pageable pageable);
 
-    List<Orders> findAll(Sort sort);
+    List<Order> findAll(Sort sort);
 
-    List<Orders> findAllById(Iterable<Integer> ids);
+    List<Order> findAllById(Iterable<Integer> ids);
 
-    <S extends Orders, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
+    <S extends Order, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
 
-    Optional<Orders> findById(Integer id);
+    Optional<Order> findById(Integer id);
 
-    <S extends Orders> Optional<S> findOne(Example<S> example);
+    <S extends Order> Optional<S> findOne(Example<S> example);
 
     void flush();
 
-    Orders getById(Integer id);
+    Order getById(Integer id);
 
-    Orders getOne(Integer id);
+    Order getOne(Integer id);
 
     int hashCode();
 
-    <S extends Orders> S save(S entity);
+    <S extends Order> S save(S entity);
 
-    <S extends Orders> List<S> saveAll(Iterable<S> entities);
+    <S extends Order> List<S> saveAll(Iterable<S> entities);
 
-    <S extends Orders> List<S> saveAllAndFlush(Iterable<S> entities);
+    <S extends Order> List<S> saveAllAndFlush(Iterable<S> entities);
 
-    <S extends Orders> S saveAndFlush(S entity);
+    <S extends Order> S saveAndFlush(S entity);
 
     String toString();
+
+
+
     
 }

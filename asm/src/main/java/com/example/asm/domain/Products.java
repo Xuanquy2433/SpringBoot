@@ -70,6 +70,12 @@ public class Products {
     @JoinColumn(name = "categoryId")
     private Category category;
 
+
+
+    @OneToMany(mappedBy = "product")
+    Set<OrderDetail> orderDetails;
+
+
     // @OneToMany(mappedBy = "products", cascade = { CascadeType.ALL })
     // Set<> accounts;
 

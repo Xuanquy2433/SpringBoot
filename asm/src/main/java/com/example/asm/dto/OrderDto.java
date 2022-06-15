@@ -16,9 +16,13 @@ import lombok.NoArgsConstructor;
 @Component
 public class OrderDto {
     private int id;
-    private String username;
-    private String createDate;
-    @NotEmpty
+    @NotEmpty(message = "Không được để trông name")
+    private String customerName;
+    @NotEmpty(message = "Không được để trông name")
     private String address;
+    @NotEmpty(message = "Không được để trông name")
+    private String phone;
+    @NotEmpty(message = "Không được để trông name")
+    private String note;
 
 }

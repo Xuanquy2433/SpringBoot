@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="css/shopSort.css">
 
 <link rel="stylesheet" href="css/ionicons.min.css">
+<link rel="icon" type="image/png" href="../assets/img/dawn.png">
 
 <link rel="stylesheet" href="css/bootstrap-datepicker.css">
 <link rel="stylesheet" href="css/jquery.timepicker.css">
@@ -75,11 +76,11 @@
         <p>We received your purchase request;<br /> we'll be in touch shortly!</p>
 
         <a style="margin-top: 50px;color: #FFA45C;font-size: 18px" class="dropdown-item"
-            href="${pageContext.request.contextPath}/ShopController">Back to shop</a>
+           th:href="@{/shop}">Back to shop</a>
     </div>
     <script>
         setTimeout(() => {
-            window.location.href = "${pageContext.request.contextPath}/ShopController"
+            window.location.href = "/shop"
         }, 3000)
     </script>
 </body>
