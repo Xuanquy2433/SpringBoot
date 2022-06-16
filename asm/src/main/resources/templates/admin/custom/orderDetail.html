@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/dawn.png">
     <title>
-        Dawn Categories
+        Dawn Orders Detail
     </title>
     <base href="/">
     <!--     Fonts and icons     -->
@@ -72,7 +72,7 @@
                         </a>
                     </li>
 
-                    <li class="active ">
+                    <li>
                         <a th:href="@{/dashboard/categories}">
                             <i class="tim-icons icon-puzzle-10"></i>
                             <p>Categories</p>
@@ -85,7 +85,8 @@
                             <p>Products</p>
                         </a>
                     </li>
-                    <li>
+
+                    <li class="active ">
                         <a th:href="@{/dashboard/orders}">
                             <i class="tim-icons icon-atom"></i>
                             <p>Orders</p>
@@ -145,7 +146,7 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="javascript:void(0)">Categories </a>
+                        <a class="navbar-brand" href="javascript:void(0)">Dawn </a>
                     </div>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -225,14 +226,14 @@
             <div class="content">
                 <div class="row">
                     <div class="col-md-12">
-                        <a class="btn btn-primary" th:href="@{/dashboard/categories/create}">Create</a>
+                        <!-- <a class="btn btn-primary" th:href="@{/dashboard/orders/create}">Create</a> -->
                         <div class="alert alert-success" role="alert" th:text="${success}" th:if="${success}"></div>
                         <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
                         <span style="margin-left: 410px;" th:text="${message}"></span>
 
                         <div class="card ">
                             <div class="card-header">
-                                <h4 class="card-title"> Categories</h4>
+                                <h4 class="card-title"> Orders Detail</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -240,27 +241,44 @@
                                         <thead class=" text-primary">
                                             <tr>
                                                 <th>
-                                                    Id
+                                                    Order Id
                                                 </th>
                                                 <th>
-                                                    Name
+                                                    Product Id
                                                 </th>
+                                                <th>
+                                                    Price
+                                                </th>
+                                                <th>
+                                                    Quantity
+                                                </th>
+
+                                                <th>
+                                                    Total
+                                                </th>
+
                                                 <th class="text-center">
                                                     Actions
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="item : ${categorys}">
-                                                <td th:text="${item.getCategoryId()}"></td>
-                                                <td th:text="${item.getName()}"></td>
-
-
+                                            <tr th:each="item : ${orderDetail}">
+                                                <td th:text="${item.getOrderId()}"></td>
+                                                <!-- <td th:text="${item.accounts.username}"></td> -->
+                                                <td th:text="${item.getProductId()}"></td>
+                                                <td
+                                                    th:text="${#numbers.formatDecimal(item.getPrice(), 1, 'DEFAULT', 0, 'DEFAULT')}">
+                                                </td>
+                                                <td th:text="${item.getQuantity()}"></td>
+                                                <td
+                                                th:text="${#numbers.formatDecimal(item.getTotal(), 1, 'DEFAULT', 0, 'DEFAULT')}">
+                                            </td>
                                                 <td class="text-center">
-                                                    <a
-                                                        th:href="@{'/dashboard/categories/edit/' + ${item.getCategoryId()}}">Edit</a>
+                                                    <!-- <a th:href="@{'/dashboard/ordersDetail/edit/' + ${item.getOrderId()} + '/' + ${item.getProductId()} }">Edit</a> -->
                                                     <a style="margin-left: 25px;"
-                                                        th:href="@{'/dashboard/categories/remove/' + ${item.getCategoryId()}}">Delete</a>
+                                                        th:href="@{'/dashboard/ordersDetail/remove/' + ${item.getOrderId()} + '/' + ${item.getProductId()}}">Delete</a>
+                                                
                                                 </td>
                                                 <!-- <td>
                                                   <a th:href="@{'/user/edit/' + ${item.getUsername()}}">Edit</a>

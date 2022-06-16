@@ -154,7 +154,7 @@
                         <!-- <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div> -->
                         <a th:href="@{'/shop'}">Keep buying</a> </br>
 
-                        <h4>Thông tin thanh toán</h4>
+                        <h4 style="margin-top: 25px;"> Thông tin thanh toán</h4>
                         <table class="table">
                             <thead class="thead-primary">
                                 <tr class="text-center">
@@ -172,7 +172,7 @@
                             <tbody th:if="${session.cart != null}">
 
                                 <tr th:each="item: ${session.cart.getCarts()}" class="text-center">
-                                
+
 
                                     <td th:text="${item.getMaSp()}">1</td>
 
@@ -203,19 +203,20 @@
 
 
                             </tbody>
-                            <tbody th:unless="${session.cart != null}">
+                            <!-- <tbody th:unless="${session.cart != null}">
                                 <tr>
                                     <td colspan='6'>Chưa có sản phẩm nào trong giỏ hàng</td>
                                 </tr>
 
-                            </tbody>
+                            </tbody> -->
                         </table>
 
                     </div>
                     <div style="text-align: right;margin-top: 10px;">
-                        <span style="text-align: right;color: black;font-weight: 700;">Total: </span>
-                        <span style="text-align: right;"
+                        <!-- <span style="text-align: right;color: black;font-weight: 700;">Total: </span>
+                        <span style="text-align: right;" th:if="${session.cart != null}"
                             th:text=" ${#numbers.formatDecimal(session.cart.total, 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
+                        <span style="text-align: right;" th:unless="${session.cart != null}">0</span> -->
                     </div>
                 </div>
 
@@ -227,12 +228,13 @@
             <div class="row justify-content-center">
                 <div class="col-xl-8 ftco-animate">
 
-                    <form th:action="@{/cart/checkout}" th:object="${order}" method="POST">
+                    <form th:if="${session.cart != null}" th:action="@{/cart/checkout}" th:object="${order}"
+                        method="POST">
                         <h3 class="mb-4 billing-heading">Billing Details</h3>
                         <div class="row align-items-end">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1" class="form-label">Name to</label>
+                                    <label for="exampleInputEmail1" class="form-label">Recipient's name</label>
                                     <input type="text" class="form-control" th:field="*{customerName}"
                                         name="customerName" id="exampleInputEmail1" aria-describedby="emailHelp">
                                     <span class="error" th:if="${#fields.hasErrors('customerName')}"> CustomerName is
@@ -244,25 +246,11 @@
                                     <label for="exampleInputPassword1" class="form-label">Address</label>
                                     <input type="text" name="address" th:field="*{address}" class="form-control"
                                         id="exampleInputPassword1">
-                                    <span class="error" th:if="${#fields.hasErrors('address')}"> Address is
-                                        required</span>
+                                    <!-- <span class="error" th:if="${#fields.hasErrors('address')}"> Address is
+                                        required</span> -->
                                 </div>
                             </div>
-                            <div class="w-100"></div>
-                            <div class="col-md-12">
-                                <!-- <div class="form-group">
-                                    <label for="country">State / Country</label>
-                                    <div class="select-wrap">
-                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                        <select name="" id="" class="form-control">
-                                            <option value="">Vietnamese</option>
-                                            <option value="">Japan</option>
-                                            <option value="">Australia</option>
-                                            <option value="">Swizer land</option>
-                                        </select>
-                                    </div>
-                                </div> -->
-                            </div>
+
                             <div class="w-100"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -284,14 +272,7 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="col-md-6">
-                                <input class="form-check-input" checked type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    COD(trả bằng tiền mặt khi nhận hàng)
-                                </label>
-                                <input type="hidden" name="total" value="<?= $total ?>" />
-                            </div> -->
-
+                  
 
                             <div class="w-100"></div>
 
@@ -328,8 +309,9 @@
                                     <hr>
                                     <p class="d-flex total-price">
                                         <span>Total</span>
-                                        <span th:text=" ${#numbers.formatDecimal(session.cart.total, 1, 'DEFAULT', 0, 'DEFAULT')} ">$17.60</span>
-                                       
+                                        <span
+                                            th:text=" ${#numbers.formatDecimal(session.cart.total, 1, 'DEFAULT', 0, 'DEFAULT')} ">$17.60</span>
+
                                     </p>
                                 </div>
                             </div>
@@ -374,6 +356,96 @@
                         </div>
 
                     </form>
+
+                    <!-- form show -->
+                    <!-- <form th:unless="${session.cart != null}" class="billing-form">
+                        <h3 class="mb-4 billing-heading">Billing Details</h3>
+                        <div class="row align-items-end">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="firstname">Firt Name</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="lastname">Last Name</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="country">State / Country</label>
+                                    <div class="select-wrap">
+                                        <div class="icon"><span class="ion-ios-arrow-down"></span></div>
+                                        <select name="" id="" class="form-control">
+                                            <option value="">France</option>
+                                            <option value="">Italy</option>
+                                            <option value="">Philippines</option>
+                                            <option value="">South Korea</option>
+                                            <option value="">Hongkong</option>
+                                            <option value="">Japan</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="streetaddress">Street Address</label>
+                                    <input type="text" class="form-control" placeholder="House number and street name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                        placeholder="Appartment, suite, unit etc: (optional)">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="towncity">Town / City</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="postcodezip">Postcode / ZIP *</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="emailaddress">Email Address</label>
+                                    <input type="text" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-md-12">
+                                <div class="form-group mt-4">
+                                    <div class="radio">
+                                        <label class="mr-3"><input type="radio" name="optradio"> Create an Account?
+                                        </label>
+                                        <label><input type="radio" name="optradio"> Ship to different address</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p><button type="submit" class="btn btn-primary py-3 px-4">Place an order</button>
+                        </p>
+                    </form> -->
+
+
+
 
                 </div> <!-- .col-md-8 -->
             </div>

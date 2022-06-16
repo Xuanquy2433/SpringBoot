@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/dawn.png">
     <title>
-        Dawn Form-Category
+        Dawn Form-Order Detail
     </title>
     <base href="/">
     <!--     Fonts and icons     -->
@@ -59,13 +59,12 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-                    <li class="active ">
+                    <li>
                         <a th:href="@{/dashboard/accounts}">
                             <i class="tim-icons icon-single-02"></i>
                             <p>Accounts</p>
                         </a>
                     </li>
-
                     <li>
                         <a th:href="@{/dashboard/roles}">
                             <i class="tim-icons icon-atom"></i>
@@ -83,6 +82,13 @@
                         <a th:href="@{/dashboard/products}">
                             <i class="tim-icons icon-atom"></i>
                             <p>Products</p>
+                        </a>
+                    </li>
+
+                    <li class="active ">
+                        <a th:href="@{/dashboard/orders}">
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Orders</p>
                         </a>
                     </li>
 
@@ -188,106 +194,106 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="title">Edit Accounts</h5>
+                                <h5 class="title">Create Orders</h5>
                             </div>
                             <div class="card-body">
-                                <form th:action="@{/dashboard/accounts/editAcc}" th:object="${account}" method="post">
+                                <form th:action="@{/dashboard/cut/edit}" th:object="${orderDetails}"
+                                    method="post">
                                     <div class="row">
+
                                         <div class="col-md-5 pr-md-1">
                                             <div class="form-group">
-                                                <label>Username</label>
-                                                <input type="text" class="form-control" readonly placeholder="Enter name"
-                                                    th:field="*{username}">
-                                                <span class="error" th:if="${#fields.hasErrors('username')}">Username is
-                                                    required</span>
+                                                <label for="exampleInputEmail1">OrderId</label>
+                                                <input th:field="*{order.id}" type="text" class="form-control" readonly>
+                                                <!-- <span class="error" th:if="${#fields.hasErrors('address')}">Address is
+                                                    required</span> -->
                                             </div>
                                         </div>
                                         <div class="col-md-3 px-md-1">
-                                            <div class="form-group">
-                                                <label>Password</label>
-                                                <input type="text" class="form-control" th:field="*{password}"
-                                                    placeholder="Passwords">
-                                                <span class="error" th:if="${#fields.hasErrors('password')}">Password is
-                                                    required 3 - 15 character</span>
-                                            </div>
+                                            <!-- <div class="form-group"> -->
+                                            <label>prd id</label>
+                                            <input type="text" class="form-control" th:field="*{product.Id}" readonly>
+                                            <!-- <span class="error"
+                                                th:if="${#fields.hasErrors('customerName')}">customerName is
+                                                required</span> -->
+                                            <!-- <div id="current_date"></p> -->
+                                            <!-- </div> -->
                                         </div>
-                                        <div class="col-md-4 pl-md-1">
-                                            <div class="form-group">
-                                                <label for="exampleInputEmail1">Email address</label>
-                                                <input type="email" th:field="*{email}" class="form-control"
-                                                    placeholder="mike@email.com">
-                                                <span class="error" th:if="${#fields.hasErrors('email')}">Email is
-                                                    required</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 pr-md-1">
-                                            <div class="form-group">
-                                                <label>Full Name</label>
-                                                <input type="text" class="form-control" placeholder="Full Name"
-                                                    th:field="*{fullName}">
-                                                <span class="error" th:if="${#fields.hasErrors('fullName')}">Full name
-                                                    is
-                                                    required</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 pl-md-1">
-                                            <div class="form-group">
-                                                <label>Photo</label>
-                                                <input type="text" th:field="*{photo}" class="form-control"
-                                                    placeholder="Photo">
-                                                <span class="error" th:if="${#fields.hasErrors('photo')}">Photo is
-                                                    required</span>
-                                            </div>
-                                        </div>
-                                    </div>
 
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6 pr-md-1">
                                             <div class="form-group">
-                                                <label>Activated</label>
-                                                <input style="width: 20px;" type="checkbox" th:field="*{activated}"
-                                                    name="activated" th:checked="${activated}" />
+                                                <label>Price</label>
+                                                <input type="number" th:field="*{price}" class="form-control"
+                                                    placeholder="Price">
+                                                <span class="error" th:if="${#fields.hasErrors('price')}">Price is
+                                                    required</span>
                                             </div>
                                         </div>
                                         <div class="col-md-6 pl-md-1">
                                             <div class="form-group">
-                                                <label>Admin</label>
-                                                <input style="width: 20px;" type="checkbox" th:field="*{admin}"
-                                                    name="admin" th:checked="${admin}" />
+                                                <label>Quantity</label>
+                                                <input type="text" class="form-control" placeholder="Quantity"
+                                                    th:field="*{quantity}">
+                                                <span class="error" th:if="${#fields.hasErrors('quantity')}">Quantity is
+                                                    required</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <div class="row">
-                                        <div class="col-md-4 pr-md-1">
+                                    <div class="row">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>City</label>
-                                                <input type="text" class="form-control" placeholder="City" value="Mike">
+                                                <label>Total</label>
+                                                <input type="text" class="form-control" th:field="*{total}"
+                                                    placeholder="Enter total">
+
+                                                <span class="error" th:if="${#fields.hasErrors('total')}">Total is
+                                                    required</span>
                                             </div>
                                         </div>
-                                        <div class="col-md-4 px-md-1">
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-md-4 pr-md-1">
                                             <div class="form-group">
-                                                <label>Country</label>
-                                                <input type="text" class="form-control" placeholder="Country"
-                                                    value="Andrew">
+                                                <label>Username</label>
+                                                <input type="text" class="form-control" placeholder="Username"
+                                                    th:field="*{account}">
+                                                <span class="error"
+                                                    th:if="${#fields.hasErrors('account')}">Username is
+                                                    required</span>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4 pl-md-1">
+                                        </div> -->
+                                        <!-- <div class="col-md-4 pr-md-1">
                                             <div class="form-group">
-                                                <label>Postal Code</label>
-                                                <input type="number" class="form-control" placeholder="ZIP Code">
+                                                <label>Note</label>
+                                                <input type="text" class="form-control" th:field="*{note}">
+                                                <span class="error" th:if="${#fields.hasErrors('note')}">note is
+                                                    required</span>
                                             </div>
-                                        </div>
-                                    </div> -->
+                                        </div> -->
+                                        <!-- <div class="col-md-4 pl-md-1">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Username</label>
+                                                <select th:field="*{account}" style="color: #A9A59F;" name="category"
+                                                    class="form-control" aria-label=".form-select-sm example">
+                                                    <option th:each="items : ${listAccounts}"
+                                                        th:value="${items.getUsername()}"
+                                                        th:text="${items.getUsername()}">One
+                                                    </option>
+
+                                                </select>
+                                            </div>
+                                        </div> -->
+                                    </div>
                                     <!-- <div class="row">
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                <label>Description</label>
-                                                <textarea rows="4" cols="80" th:field="*{description}"
-                                                    class="form-control" placeholder="Enter descriptions"></textarea>
+                                                <label>Note</label>
+                                                <textarea rows="0" cols="80" th:field="*{note}"
+                                                    class="form-control" placeholder="Enter note"></textarea>
                                                 <span class="error"
-                                                    th:if="${#fields.hasErrors('description')}">Description is
+                                                    th:if="${#fields.hasErrors('note')}">note is
                                                     required</span>
                                             </div>
                                         </div>
@@ -543,6 +549,10 @@
                 });
             });
         });
+
+
+
+        document.getElementById("current_date").innerHTML = Date();
     </script>
     <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
     <script>

@@ -5,8 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.asm.Repository.OrderDetailRes;
 import com.example.asm.domain.OrderDetail;
 import com.example.asm.domain.OrderDetailKey;
+import com.example.asm.dto.OrderDetailDto;
 import com.example.asm.service.OrderDetailService;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -20,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderDetailServiceImp implements OrderDetailService {
     @Autowired
-     OrderDetailRes orderDetailRes;
+    OrderDetailRes orderDetailRes;
 
     public List<OrderDetail> findAll() {
         return orderDetailRes.findAll();
@@ -138,7 +144,8 @@ public class OrderDetailServiceImp implements OrderDetailService {
         return orderDetailRes.exists(example);
     }
 
-    public <S extends OrderDetail, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends OrderDetail, R> R findBy(Example<S> example,
+            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return orderDetailRes.findBy(example, queryFunction);
     }
 
@@ -156,4 +163,27 @@ public class OrderDetailServiceImp implements OrderDetailService {
     public String toString() {
         return orderDetailRes.toString();
     }
+
+    public List<OrderDetailDto> getListOrderDetail(int id) {
+        Connection conn = DBProvider.getConnection();
+        List<OrderDetailDto> ListCat = new ArrayList<OrderDetailDto>();
+        try {
+            String sql = "SELECT * FROM order_detail where order_id =  ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, id);
+
+            ResultSet rst = pst.executeQuery();
+            while (rst.next()) {
+                OrderDetailDto posts = new OrderDetailDto(rst.getInt(1), rst.getInt(2), rst.getDouble(3), rst.getInt(4),
+                        rst.getDouble(5));
+                ListCat.add(posts);
+            }
+            return ListCat;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

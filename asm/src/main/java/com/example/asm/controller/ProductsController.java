@@ -104,6 +104,7 @@ public class ProductsController {
             Optional<Products> prd = productService.findById(id);
             if (prd.isPresent()) {
                 model.addAttribute("products", prd.get());
+                // model.addAttribute("categorys", categoryService.findAll());
                 return "admin/form/editProducts";
             }
         }
@@ -122,14 +123,18 @@ public class ProductsController {
         }
 
         String fileName = StringUtils.cleanPath(dto.getImage().getOriginalFilename());
+        
         Category category = new Category();
         category.setCategoryId(dto.getCategory());
 
         Products copy = new Products();
+        BeanUtils.copyProperties(dto, copy);
         copy.setCategory(category);
         copy.setImage(fileName);
+        
+        System.err.println("idddddddddddddddddđ  : " + copy.getCategory() );
+        System.err.println("idddddddddddddddddđ  : " + dto.getCategory() );
 
-        BeanUtils.copyProperties(dto, copy);
         System.err.println("copy product : " + copy);
         productService.save(copy);
         try {

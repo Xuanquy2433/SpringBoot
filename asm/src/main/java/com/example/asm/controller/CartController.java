@@ -51,6 +51,8 @@ public class CartController {
     @Autowired
     MailService mailService;
 
+    String nameProduct = "";
+
     @GetMapping("")
     public String cart(Model model) {
         return "cart";
@@ -77,6 +79,7 @@ public class CartController {
         Order order = new Order();
         BeanUtils.copyProperties(dto, order);
         String username = (String) httpSession.getAttribute("username");
+        String email = (String) httpSession.getAttribute("email");
         Account account = accountService.getById(username);
         order.setAccount(account);
         CartDto cart = (CartDto) httpSession.getAttribute("cart");
@@ -96,46 +99,66 @@ public class CartController {
 
             orderDetail.setTotal(item.getPrice() * item.getSoLuong());
 
+            String status = String.valueOf(order.getStatus());
+            if (status.equals("1")) {
+                status = "Completed";
+
+            } else {
+                status = "Pending";
+            }
+
             orderDetailService.save(orderDetail);
-            // mailService.sendAsHtml("truongvan6322@gmail.com", "Đơn hàng c", " <table
-            // class=\"table\">\n"
-            // + " <thead class=\"thead-primary\">\n"
-            // + " <tr class=\"text-center\">\n"
-            // + " <th scope=\"col\">Id</th>\n"
-            // + " <th scope=\"col\">Name</th>\n"
-            // + " <th scope=\"col\">Note</th>\n"
-            // + " <th scope=\"col\">Phone</th>\n"
-            // + " <th scope=\"col\">Status</th>\n"
-            // + " <th scope=\"col\">Total</th>\n"
-            // + " <th scope=\"col\">username</th>\n"
-            // + " </tr>\n"
-            // + "\n"
-            // + "\n"
-            // + " </thead>\n"
-            // + " <tbody >\n"
-            // + "\n"
-            // + " <tr class=\"text-center\">\n"
-            // + " \n"
-            // + "\n"
-            // + " <td > " + order.getId() + " </td>\n"
-            // + "\n"
-            // + "\n"
-            // + " <td class=\"product-name\">\n"
-            // + order.getCustomerName()
-            // + "\n"
-            // + " </td>\n"
-            // + " <td style=\"width: 8%;\" class=\"image-prod\">\n"
-            // + " <img style=\"width: 100%;height: 70px;\"\n"
-            // + " src=\" " + order.getNote() + " \" class=\"img\">\n"
-            // + " </td>\n"
-            // + "\n"
-            // + " <td > " + order.getPhone() + " </td>\n"
-            // + " <td > " + order.getStatus() + " </td>\n"
-            // + " <td > " + order.getTotal() + " </td>\n"
-            // + "\n"
-            // + "\n"
-            // + " </tbody>\n"
-            // + " </table> ");
+            mailService.sendAsHtml(email, "Đơn hàng ", "  <p> Vui lòng xem lại đơn hàng của bạn. </p>   <table>\n"
+                    + "        <thead style=\" \n"
+                    + "        background: #2f73c1 ;color: white;\">\n"
+                    + "            <tr>\n"
+                    + "                <th style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">Id</th>\n"
+                    + "                <th style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">Name</th>\n"
+                    + "                <th style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">Note</th>\n"
+                    + "                <th style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">Phone</th>\n"
+                    + "                <th style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">Quantity</th>\n"
+                    + "                <th style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">Status</th>\n"
+                    + "                <th style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">Total</th>\n"
+                    + "                <th style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">Username</th>\n"
+                    + "                <th style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">Name Products</th>\n"
+                    + "                <th style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">Address</th>\n"
+                    + "            </tr>\n"
+                    + "        </thead>\n"
+                    + "        <tbody>\n"
+                    + "            <tr style=\"background-color: aliceblue;\">\n"
+                    + "                <td style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">  " + order.getId() + "  </td>\n"
+                    + "                <td style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">  " + order.getCustomerName() + "  </td>\n"
+                    + "                <td style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">  " + order.getNote() + "  </td>\n"
+                    + "                <td style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">  " + order.getPhone() + "  </td>\n"
+                    + "                <td style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">  " + orderDetail.getQuantity() + "  </td>\n"
+                    + "                <td style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">  " + status + "  </td>\n"
+                    + "                <td style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">  " + order.getTotal() + "  </td>\n"
+                    + "                <td style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">  " + username + "  </td>\n"
+                    + "                <td style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">  " + nameProduct + "  </td>\n"
+                    + "                <td style=\" padding: 6px 12px;\n"
+                    + "                display: table-cell\">  " + order.getAddress() + "  </td>\n"
+                    + "            </tr>\n"
+                    + "        </tbody>\n"
+                    + "    </table> ");
             redirAttrs.addFlashAttribute("success", "Checkout success");
         }
         return "SuccsessPage";
@@ -143,6 +166,7 @@ public class CartController {
 
     @Autowired
     HttpSession httpSession;
+
 
     @GetMapping("addCart/{id}")
     public String add(Model model,
@@ -162,6 +186,7 @@ public class CartController {
                 item.setSoLuong(1);
                 item.setPrice(detail.get().getPrice());
                 item.setTitle(detail.get().getName());
+                nameProduct = detail.get().getName();
                 item.setImage(detail.get().getImage());
                 if (carts != null) {
                     // có cart

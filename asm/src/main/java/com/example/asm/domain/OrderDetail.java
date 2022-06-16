@@ -33,11 +33,16 @@ public class OrderDetail {
 
     @EmbeddedId
     OrderDetailKey id;
+
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToOne
     @MapsId("orderId")
     @JoinColumn(name = "orderId")
     Order order;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToOne
     @MapsId("productId")
     @JoinColumn(name = "productId")

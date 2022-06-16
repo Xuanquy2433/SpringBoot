@@ -194,7 +194,6 @@
                                     enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="col-md-5 pr-md-1">
-
                                             <input type="hidden" th:field="*{id}">
                                             <div class="form-group">
                                                 <label>Name</label>
@@ -216,9 +215,9 @@
                                         <div class="col-md-4 pl-md-1">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Category</label>
-                                                <select th:field="*{category}" style="color: #A9A59F;" name="categoryId"
-                                                    class="form-control" aria-label=".form-select-sm example">
-                                                    <!-- <option selected>Choose Category</option> -->
+                                                <select th:value="${category}" style="color: #A9A59F;"
+                                                    name="category" class="form-control"
+                                                    aria-label=".form-select-sm example">
                                                     <option th:each="items : ${categorys}"
                                                         th:value="${items.getCategoryId()}"
                                                         th:text="${items.getName()}">One

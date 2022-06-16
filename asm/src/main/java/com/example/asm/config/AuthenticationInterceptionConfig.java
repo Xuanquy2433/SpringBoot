@@ -18,7 +18,7 @@ public class AuthenticationInterceptionConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminAuthenticationInterceptor)
-                .addPathPatterns("/admin/**");
+                .addPathPatterns("/dashboard/**");
     }
 
     // public void addViewControllers(ViewControllerRegistry registry) {

@@ -19,10 +19,19 @@ public class OrderDto {
     @NotEmpty(message = "Không được để trông name")
     private String customerName;
     @NotEmpty(message = "Không được để trông name")
+    private String note;
+
+    @NotEmpty(message = "Không được để trông name")
     private String address;
     @NotEmpty(message = "Không được để trông name")
     private String phone;
-    @NotEmpty(message = "Không được để trông name")
-    private String note;
+    // @NotEmpty(message = "Không được để trông name")
+    private int status;
+
+    // @NotEmpty(message = "Không được để trông name")
+    private double total;
+
+    // @NotEmpty(message = "Không được để trông name")
+    private String account;
 
 }

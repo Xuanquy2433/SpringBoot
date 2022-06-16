@@ -33,6 +33,8 @@ public class AccountController {
     @Autowired
     RoleService roleService;
 
+ 
+
     @GetMapping("accounts")
     public String categories(Model model) {
         System.out.println("go here");
@@ -96,7 +98,7 @@ public class AccountController {
         if (username != null) {
             Optional<Account> accountDetail = accountService.findById(username);
             if (accountDetail.isPresent()) {
-                model.addAttribute("accountss", accountDetail.get());
+                model.addAttribute("account", accountDetail.get());
                 return "admin/form/editAccount";
             }
         }
@@ -105,7 +107,7 @@ public class AccountController {
 
     @PostMapping("accounts/editAcc")
     public String editRole(Model model,
-            @Valid @ModelAttribute("username") AccountDto dto,
+            @Valid @ModelAttribute("account") AccountDto dto,
             BindingResult result,
             RedirectAttributes redirAttrs) {
         // kiểm tra lỗi
@@ -113,12 +115,11 @@ public class AccountController {
             System.out.print("loi");
             // đẩy lại view và đưa ra thông báo lỗi
             return "admin/form/editAccount";
-
         }
         Account account = new Account();
         // account.setUsername(dto.getUsername());
         BeanUtils.copyProperties(dto, account);
-        accountService.saveUpdate(account);
+        accountService.save(account);
         redirAttrs.addFlashAttribute("success", "Edit succsess");
         return "redirect:/dashboard/accounts"; // Return tên của View, model sẽ tự động pass vào view
     }

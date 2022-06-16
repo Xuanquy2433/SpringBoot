@@ -2,6 +2,7 @@ package com.example.asm.service;
 
 import com.example.asm.domain.OrderDetail;
 import com.example.asm.domain.OrderDetailKey;
+import com.example.asm.dto.OrderDetailDto;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -57,6 +58,8 @@ public interface OrderDetailService {
 
     List<OrderDetail> findAllById(Iterable<OrderDetailKey> ids);
 
+    // List<OrderDetail> findAllByIdInt(Integer ids);
+
     <S extends OrderDetail, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction);
 
     Optional<OrderDetail> findById(OrderDetailKey id);
@@ -80,5 +83,7 @@ public interface OrderDetailService {
     <S extends OrderDetail> S saveAndFlush(S entity);
 
     String toString();
+
+    List<OrderDetailDto> getListOrderDetail(int id);
     
 }

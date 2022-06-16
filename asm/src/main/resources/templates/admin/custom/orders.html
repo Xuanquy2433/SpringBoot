@@ -23,7 +23,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/dawn.png">
     <title>
-        Dawn Categories
+        Dawn Orders
     </title>
     <base href="/">
     <!--     Fonts and icons     -->
@@ -72,7 +72,7 @@
                         </a>
                     </li>
 
-                    <li class="active ">
+                    <li >
                         <a th:href="@{/dashboard/categories}">
                             <i class="tim-icons icon-puzzle-10"></i>
                             <p>Categories</p>
@@ -83,6 +83,13 @@
                         <a th:href="@{/dashboard/products}">
                             <i class="tim-icons icon-atom"></i>
                             <p>Products</p>
+                        </a>
+                    </li>
+
+                    <li class="active ">
+                        <a th:href="@{/dashboard/orders}">
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Orders</p>
                         </a>
                     </li>
                     <li>
@@ -219,7 +226,7 @@
             <div class="content">
                 <div class="row">
                     <div class="col-md-12">
-                        <a class="btn btn-primary" th:href="@{/dashboard/orders/create}">Create</a>
+                        <!-- <a class="btn btn-primary" th:href="@{/dashboard/orders/create}">Create</a> -->
                         <div class="alert alert-success" role="alert" th:text="${success}" th:if="${success}"></div>
                         <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
                         <span style="margin-left: 410px;" th:text="${message}"></span>
@@ -237,10 +244,22 @@
                                                     Id
                                                 </th>
                                                 <th>
-                                                    Username
+                                                    Customer Name
                                                 </th>
                                                 <th>
-                                                    Create date
+                                                    Note
+                                                </th>
+                                                <th>
+                                                    Phone
+                                                </th>
+                                                <th>
+                                                    Status
+                                                </th>
+                                                <th>
+                                                    Total
+                                                </th>
+                                                <th>
+                                                    Username
                                                 </th>
                                                 <th>
                                                     Address
@@ -253,16 +272,21 @@
                                         <tbody>
                                             <tr th:each="item : ${orders}">
                                                 <td th:text="${item.getId()}"></td>
-                                                <td th:text="${item.accounts.getUsername()}"></td>
-                                                <td th:text="${item.getCreateDate()}"></td>
+                                                <!-- <td th:text="${item.accounts.username}"></td> -->
+                                                <td th:text="${item.getCustomerName()}"></td>
+                                                <td th:text="${item.getNote()}"></td>
+                                                <td th:text="${item.getPhone()}"></td>
+                                                <td th:text="${item.getStatus()}"></td>
+                                                <td  th:text="${#numbers.formatDecimal(item.getTotal(), 1, 'DEFAULT', 0, 'DEFAULT')}"></td>
+                                                <td th:text="${item.account.getUsername()}"></td>
                                                 <td th:text="${item.getAddress()}"></td>
 
-
                                                 <td class="text-center">
-                                                    <a
-                                                        th:href="@{'/dashboard/orders/edit/' + ${item.getId()}}">Edit</a>
+                                                    <a th:href="@{'/dashboard/orders/edit/' + ${item.getId()}}">Edit</a>
                                                     <a style="margin-left: 25px;"
                                                         th:href="@{'/dashboard/orders/remove/' + ${item.getId()}}">Delete</a>
+                                                        <a style="margin-left: 25px;"
+                                                        th:href="@{'/dashboard/orders/detail/' + ${item.getId()}}">Detail</a>
                                                 </td>
                                                 <!-- <td>
                                                   <a th:href="@{'/user/edit/' + ${item.getUsername()}}">Edit</a>

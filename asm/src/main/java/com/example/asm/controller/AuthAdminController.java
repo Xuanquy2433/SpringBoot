@@ -165,11 +165,13 @@ public class AuthAdminController {
                 System.out.println(check.getFullName());
                 session.setAttribute("username", check.getUsername());
                 session.setAttribute("showName", check.getFullName());
+                session.setAttribute("email", check.getEmail());
                 session.setAttribute("role", role);
                 return "redirect:/dashboard/home";
             } else {
                 role = "user";
                 session.setAttribute("username", check.getUsername());
+                session.setAttribute("email", check.getEmail());
                 session.setAttribute("showName", check.getFullName());
                 session.setAttribute("role", role);
                 return "redirect:/shop";

@@ -18,6 +18,8 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -27,13 +29,16 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(length = 50, nullable = false)
     private int categoryId;
-    
+
     @NotEmpty(message = "Category name is required")
-    // @Length(min = 3, max = 50, message = "Category name must be between 3 and 50 characters")
+    // @Length(min = 3, max = 50, message = "Category name must be between 3 and 50
+    // characters")
     @Column(length = 200, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = { CascadeType.ALL })
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(mappedBy = "category")
     // @Valid
     Set<Products> products;
 }

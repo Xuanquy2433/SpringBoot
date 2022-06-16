@@ -14,8 +14,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <!DOCTYPE html>
-<html xmlns:tiles="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:tiles="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <head>
 
@@ -89,7 +89,12 @@
               <p>Products</p>
             </a>
           </li>
-
+          <li >
+            <a th:href="@{/dashboard/orders}">
+              <i class="tim-icons icon-atom"></i>
+              <p>Orders</p>
+            </a>
+          </li>
 
           <li>
             <a th:href="@{/dashboard/notification}">
