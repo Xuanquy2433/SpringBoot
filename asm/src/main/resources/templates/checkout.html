@@ -203,27 +203,27 @@
 
 
                             </tbody>
-                            <!-- <tbody th:unless="${session.cart != null}">
+                            <tbody th:unless="${session.cart != null}">
                                 <tr>
                                     <td colspan='6'>Chưa có sản phẩm nào trong giỏ hàng</td>
                                 </tr>
 
-                            </tbody> -->
+                            </tbody>
                         </table>
 
                     </div>
                     <div style="text-align: right;margin-top: 10px;">
-                        <!-- <span style="text-align: right;color: black;font-weight: 700;">Total: </span>
+                        <span style="text-align: right;color: black;font-weight: 700;">Total: </span>
                         <span style="text-align: right;" th:if="${session.cart != null}"
                             th:text=" ${#numbers.formatDecimal(session.cart.total, 1, 'DEFAULT', 0, 'DEFAULT')}"></span>
-                        <span style="text-align: right;" th:unless="${session.cart != null}">0</span> -->
+                        <span style="text-align: right;" th:unless="${session.cart != null}">0</span>
                     </div>
                 </div>
 
             </div>
     </section>
 
-    <section class="ftco-section">
+    <section class="ftco-section" style="padding: 0;margin-bottom: 100px;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-8 ftco-animate">
@@ -358,7 +358,7 @@
                     </form>
 
                     <!-- form show -->
-                    <!-- <form th:unless="${session.cart != null}" class="billing-form">
+                    <form th:unless="${session.cart != null}" class="billing-form">
                         <h3 class="mb-4 billing-heading">Billing Details</h3>
                         <div class="row align-items-end">
                             <div class="col-md-6">
@@ -442,7 +442,7 @@
                         </div>
                         <p><button type="submit" class="btn btn-primary py-3 px-4">Place an order</button>
                         </p>
-                    </form> -->
+                    </form>
 
 
 

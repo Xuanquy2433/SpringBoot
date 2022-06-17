@@ -22,6 +22,7 @@ public class AdminAuthenticationInterceptor implements HandlerInterceptor {
         }
 
         session.setAttribute("request-url", request.getRequestURL());
+        session.setAttribute("mess", "your");
         response.sendRedirect("/login");
         return false;
     }

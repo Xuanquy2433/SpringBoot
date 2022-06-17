@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th6 15, 2022 lúc 04:32 PM
+-- Thời gian đã tạo: Th6 16, 2022 lúc 03:50 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.0.19
 
@@ -42,19 +42,22 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`username`, `activated`, `admin`, `email`, `full_name`, `password`, `photo`) VALUES
-('123123123', b'0', b'1', 'truongvan6322@gmail.com', 'Quy123', '+FA2gCyywlyJlwK9FOfNWw==', 'http://localhost:8080/assets/img/avt.jpg'),
 ('admin', b'1', b'1', 'truongvan6322@gmail.com', 'Xuân Quý', 'YUusPptmhlRTchtm2hehyw==', 'http://localhost:8080/assets/img/avt.jpg'),
 ('admin1', b'1', b'0', 'truongvan6322@gmail.com', 'Văn Trương', 'YUusPptmhlRTchtm2hehyw==', 'https://www.w3schools.com/howto/img_avatar.png'),
+('admin456', b'1', b'0', 'truongvan6322@gmail.com', 'Test thoi ', 'YUusPptmhlRTchtm2hehyw==', 'http://localhost:8080/assets/img/avt.jpg'),
 ('adminnew', b'1', b'0', 'truongvan6322@gmail.com', 'Nguyệt Nga', 'lH5VRxauC+6Hanju4FAgPw==', 'https://www.w3schools.com/howto/img_avatar.png'),
 ('asd', b'1', b'0', 'truongvan6322@gmail.com', '1231', 'YUusPptmhlRTchtm2hehyw==', 'https://www.w3schools.com/howto/img_avatar.png'),
 ('bnm', b'1', b'1', 'truongvan6322@gmail.com', 'Xuân Qúy', 'YUusPptmhlRTchtm2hehyw==', 'http://localhost:8080/assets/img/avt.jpg'),
+('bnm12313', b'1', b'0', 'truongvan6322@gmail.com', 'Xuân Qúy', 'YUusPptmhlRTchtm2hehyw==', 'http://localhost:8080/assets/img/avt.jpg'),
 ('cc1', b'1', b'0', 'truongvan6322@gmail.com', 'Quy', 'YUusPptmhlRTchtm2hehyw==', 'https://www.w3schools.com/howto/img_avatar.png'),
 ('crud', b'1', b'0', 'truongvan6322@gmail.com', 'Test thoi n', 'YUusPptmhlRTchtm2hehyw==', 'http://localhost:8080/assets/img/avt.jpg'),
 ('hass', b'1', b'0', 'truongvan6322@gmail.com', 'Test thoi 123', 'lH5VRxauC+6Hanju4FAgPw==', 'https://www.w3schools.com/howto/img_avatar.png'),
+('hello', b'1', b'0', 'truongvan6322@gmail.com', 'Test thoi ', 'YUusPptmhlRTchtm2hehyw==', 'https://www.w3schools.com/howto/img_avatar.png'),
 ('okroi', b'1', b'0', 'truongvan6322@gmail.com', 'ok', 'YUusPptmhlRTchtm2hehyw==', 'https://www.w3schools.com/howto/img_avatar.png'),
 ('signup', b'1', b'1', 'truongvan6322@gmail.com', 'Quy', 'YUusPptmhlRTchtm2hehyw==', 'https://www.w3schools.com/howto/img_avatar.png'),
 ('user', b'1', b'0', 'truongvan6322@gmail.com', 'Văn Trương', 'YUusPptmhlRTchtm2hehyw==', 'https://www.w3schools.com/howto/img_avatar.png'),
-('xuanquy', b'1', b'0', 'truongvan6322@gmail.com', 'Test thoi ', 't5435', 'http://localhost:8080/assets/img/avt.jpg');
+('xuanquy', b'1', b'0', 'truongvan6322@gmail.com', 'Test thoi ', 't5435', 'http://localhost:8080/assets/img/avt.jpg'),
+('xuanquyne', b'1', b'1', '123@gmail.com', 'Test thoi ah', 'YUusPptmhlRTchtm2hehyw==', 'http://localhost:8080/assets/img/avt.jpg');
 
 -- --------------------------------------------------------
 
@@ -76,7 +79,8 @@ INSERT INTO `category` (`category_id`, `name`) VALUES
 (2, 'Book'),
 (3, 'Phone'),
 (4, 'Other'),
-(7, 'ewrere123');
+(7, 'ewrere123'),
+(18, '123');
 
 -- --------------------------------------------------------
 
@@ -91,21 +95,24 @@ CREATE TABLE `orders` (
   `phone` varchar(15) NOT NULL,
   `status` int(11) NOT NULL,
   `total` double NOT NULL,
-  `username` varchar(200) DEFAULT NULL
+  `username` varchar(200) DEFAULT NULL,
+  `address` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
-INSERT INTO `orders` (`id`, `customer_name`, `note`, `phone`, `status`, `total`, `username`) VALUES
-(1, 'test name', 'khong', '0123123', 0, 60000000, 'cc1'),
-(2, 'ok r', 'khong', '0339176342', 1, 30050000, 'cc1'),
-(3, '213', '123', '1231', 1, 30000000, 'cc1'),
-(4, 'quy', '123', '12313', 1, 30000000, 'cc1'),
-(5, 'quy', '123', '123', 1, 30000000, 'cc1'),
-(6, '123', '123', '123', 1, 30000000, 'cc1'),
-(7, 'xuanquy', '123', '123', 1, 30000000, 'cc1');
+INSERT INTO `orders` (`id`, `customer_name`, `note`, `phone`, `status`, `total`, `username`, `address`) VALUES
+(3, '213', '123', '1231', 1, 30000000, 'cc1', 'a'),
+(7, 'xuanquy123', '123', '123', 1, 30000000, 'cc1', 'a'),
+(8, 'quy', 'khong', '0123123123123', 1, 60000000, 'cc1', 'a'),
+(9, 'quy', 'khong', '0123123123123', 1, 30000000, 'cc1', 'a'),
+(12, 'Văn Trương', 'Không', '0339156343', 1, 1290000, 'cc1', 'daklak'),
+(13, 'xuân', 'khong', '033917634225', 1, 2000000, 'cc1', 'daklak'),
+(15, 'quy', 'khong', '0339176341', 1, 4000000, 'user', 'daklak'),
+(16, 'quy', 'khong', '0339176342', 1, 30000000, 'user', 'daklak'),
+(17, 'xuanquy', 'khong', '033917634212', 1, 540000, 'user', 'bmt');
 
 -- --------------------------------------------------------
 
@@ -126,14 +133,13 @@ CREATE TABLE `order_detail` (
 --
 
 INSERT INTO `order_detail` (`order_id`, `product_id`, `price`, `quantity`, `total`) VALUES
-(1, 2, 30000000, 2, 60000000),
-(2, 2, 30000000, 1, 30000000),
-(2, 6, 50000, 1, 50000),
 (3, 2, 30000000, 1, 30000000),
-(4, 2, 30000000, 1, 30000000),
-(5, 2, 30000000, 1, 30000000),
-(6, 2, 30000000, 1, 30000000),
-(7, 2, 30000000, 1, 30000000);
+(7, 2, 30000000, 1, 30000000),
+(15, 5, 2000000, 2, 4000000),
+(16, 2, 30000000, 1, 30000000),
+(17, 3, 400000, 1, 400000),
+(17, 4, 90000, 1, 90000),
+(17, 6, 50000, 1, 50000);
 
 -- --------------------------------------------------------
 
@@ -157,7 +163,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `image`, `price`, `create_date`, `available`, `description`, `category_id`) VALUES
-(2, 'Xiaomi Black Shark', 'xiaomi-black-shark-2-1-600x600.jpg', 30000000, '2022-06-14 10:22:30', b'1', 'Do not be scared of the\r\n', 3),
+(2, 'Xiaomi Black Shark', 'xiaomi-black-shark-2-1-600x600.jpg', 30000000, '2022-06-16 19:13:05', b'1', 'Do not be scared of the\r\n', 1),
 (3, 'Samsung A202', 'iphone-13-pro-xanh-la.jpg', 400000, '2022-06-14 10:22:38', b'1', 'Do not be scared of the', 3),
 (4, 'Attack on titan', 'download (1).jfif', 90000, '2022-06-14 10:23:45', b'1', 'Do not be scared of the', 2),
 (5, 'Tokyo Ghoul', 'download.jfif', 2000000, '2022-06-14 10:25:13', b'1', 'Do not be scared of', 2),
@@ -167,7 +173,10 @@ INSERT INTO `product` (`id`, `name`, `image`, `price`, `create_date`, `available
 (9, 'Test', '195909638_262359105664557_4019114315410013355_n.jpg', 10000, '2022-06-13 21:35:10', b'0', 'Khong', 4),
 (10, 'final', '596884.jpg', 20000000, '2022-06-13 21:26:12', b'1', 'ko', 4),
 (12, 'testMul', '6952350af0e5077eb3e7cdeb5334af46.png', 123, '2022-06-11 19:59:06', b'1', 'ok', 1),
-(15, '213', 'hinh-nen-anime-cho-laptop-2.jpg', 12, '2022-06-13 21:26:54', b'0', '123', 1);
+(15, '213', 'hinh-nen-anime-cho-laptop-2.jpg', 12, '2022-06-13 21:26:54', b'0', '123', 1),
+(18, 'test', 'smizbth2-1-o7x1-hinh-mat-truoc-0-large-jpeg.webp', 123, '2022-06-16 12:50:54', b'1', '123', 3),
+(19, 'Clothes', 'smizbth2-1-o7x1-hinh-mat-truoc-0-large-jpeg.webp', 123, '2022-06-16 15:41:38', b'0', '123', 3),
+(23, 'ád123', '', 123, '2022-06-16 19:18:41', b'1', '123', 1);
 
 -- --------------------------------------------------------
 
@@ -250,19 +259,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT cho bảng `roles`

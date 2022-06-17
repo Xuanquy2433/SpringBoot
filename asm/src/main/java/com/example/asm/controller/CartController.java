@@ -1,5 +1,7 @@
 package com.example.asm.controller;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Optional;
 
 import javax.mail.MessagingException;
@@ -107,8 +109,26 @@ public class CartController {
                 status = "Pending";
             }
 
+            Locale localeVN = new Locale("vi", "VN");
+            NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+            String money = currencyVN.format(order.getTotal());
+
             orderDetailService.save(orderDetail);
-            mailService.sendAsHtml(email, "Đơn hàng ", "  <p> Vui lòng xem lại đơn hàng của bạn. </p>   <table>\n"
+            mailService.sendAsHtml(email, "Chúc mừng " + username + " đã đặt hàng thành công. ", " "
+                    + "    <h5  style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\"> ID đơn hàng:  "
+                    + order.getId() + " </h5>"
+                    + "  <div style=\"margin-left: 39px;margin-top: 35px;\">\n"
+                    + "    <h4 style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\">Tên người nhận:  <span style=\"color: rgb(255, 141, 48);\">"
+                    + order.getCustomerName() + " </span> </h4>\n"
+                    + "    <h4  style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-seri;\">Địa chỉ: <span style=\"color: rgb(255, 141, 48);\"> "
+                    + order.getAddress() + " </span> </h4>\n"
+                    + "    <h4  style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\">Tổng tiền thanh toán:  <span style=\"color: rgb(255, 141, 48);\" > "
+                    + money + " </span> "
+                    + "    <h4  style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\">Số điện thoại: <span style=\"color: rgb(255, 141, 48);\">"
+                    + order.getPhone() + " </span> </h4>\n"
+                    + "  </div> "
+                    + "  <h5  style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\">Vui lòng kiểm tra lại thông tin đơn hàng </h5>"
+                    + "<table style=\"font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\" >\n"
                     + "        <thead style=\" \n"
                     + "        background: #2f73c1 ;color: white;\">\n"
                     + "            <tr>\n"
@@ -149,7 +169,7 @@ public class CartController {
                     + "                <td style=\" padding: 6px 12px;\n"
                     + "                display: table-cell\">  " + status + "  </td>\n"
                     + "                <td style=\" padding: 6px 12px;\n"
-                    + "                display: table-cell\">  " + order.getTotal() + "  </td>\n"
+                    + "                display: table-cell\">  " + money + "  </td>\n"
                     + "                <td style=\" padding: 6px 12px;\n"
                     + "                display: table-cell\">  " + username + "  </td>\n"
                     + "                <td style=\" padding: 6px 12px;\n"
@@ -166,7 +186,6 @@ public class CartController {
 
     @Autowired
     HttpSession httpSession;
-
 
     @GetMapping("addCart/{id}")
     public String add(Model model,

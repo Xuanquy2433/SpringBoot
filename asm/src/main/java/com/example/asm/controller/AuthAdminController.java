@@ -139,6 +139,7 @@ public class AuthAdminController {
         if (session.getAttribute("username") != null) {
             session.removeAttribute("username");
             session.removeAttribute("role");
+            session.removeAttribute("mess");
             return "redirect:/login";
         }
         return "redirect:/login";

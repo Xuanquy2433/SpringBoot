@@ -210,7 +210,7 @@
                                         </div>
                                     </div>
                                 </div> -->
-                        <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate" th:each="items : ${catDetails}">
+                        <div class="col-sm-6 col-md-6 col-lg-4 ftco-animate" th:if="${catDetails.size() != 0}" th:each="items : ${catDetails}">
                             <div class="product">
                                 <a th:href="@{'/dashboard/products/detail/' + ${items.getId()}}" class="img-prod"><img
                                         style="height: 320px;width: 100%;" class="img-fluid"  th:src="@{'/saveImages/' +  ${items.getImage()}}"
@@ -247,6 +247,10 @@
                                     </p>
                                 </div>
                             </div>
+                        </div>
+
+                        <div th:unless="${catDetails.size() != 0}">
+                                <p style="margin-left: 390px;margin-top: 50px;">Chưa có sản phẩm nào !</p>
                         </div>
 
 
