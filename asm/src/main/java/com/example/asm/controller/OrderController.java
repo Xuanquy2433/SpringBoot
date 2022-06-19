@@ -86,7 +86,7 @@ public class OrderController {
         BeanUtils.copyProperties(dto, copy);
         System.out.println("copy: " + copy);
         orderService.save(copy);
-        redirectAttributes.addFlashAttribute("success", "Add succsess");
+        redirectAttributes.addFlashAttribute("success", "Add success");
         return "redirect:/dashboard/orders";
 
     }
@@ -157,7 +157,7 @@ public class OrderController {
         System.err.println("ỏder : " + order);
 
         orderService.save(order);
-        redirectAttributes.addFlashAttribute("success", "Edit succsess");
+        redirectAttributes.addFlashAttribute("success", "Edit success");
         return "redirect:/dashboard/orders"; // Return tên của View, model sẽ tự động pass vào view
     }
 

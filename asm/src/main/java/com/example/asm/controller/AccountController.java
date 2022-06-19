@@ -71,7 +71,7 @@ public class AccountController {
         BeanUtils.copyProperties(dto, copy);
         System.out.println("copy: " + copy);
         accountService.save(copy);
-        redirectAttributes.addFlashAttribute("success", "Add succsess");
+        redirectAttributes.addFlashAttribute("success", "Add success");
         return "redirect:/dashboard/accounts";
 
     }
@@ -120,7 +120,7 @@ public class AccountController {
         // account.setUsername(dto.getUsername());
         BeanUtils.copyProperties(dto, account);
         accountService.save(account);
-        redirAttrs.addFlashAttribute("success", "Edit succsess");
+        redirAttrs.addFlashAttribute("success", "Edit success");
         return "redirect:/dashboard/accounts"; // Return tên của View, model sẽ tự động pass vào view
     }
 }

@@ -17,12 +17,21 @@ public class AdminAuthenticationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         // TODO Auto-generated method stub
-        if (session.getAttribute("username") != null) {
+        if (session.getAttribute("username") != null ) {
             return true;
         }
 
+        // else if(session.getAttribute("username") != null && session.getAttribute("role").equals("user")){
+        //     session.setAttribute("request-url", request.getRequestURL());
+        //     session.setAttribute("mess", "your");
+        //     response.sendRedirect("/login");
+        //     return false;
+        // }
+
         session.setAttribute("request-url", request.getRequestURL());
         session.setAttribute("mess", "your");
+        session.setAttribute("chk", "true");
+
         response.sendRedirect("/login");
         return false;
     }

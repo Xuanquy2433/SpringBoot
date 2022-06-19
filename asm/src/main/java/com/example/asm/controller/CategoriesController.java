@@ -63,7 +63,7 @@ public class CategoriesController {
     // edit categories post
     @PostMapping("categories/edit")
     public String editRole(Model model,
-            @Valid @ModelAttribute("id") CategoryDto dto,
+            @Valid @ModelAttribute("category") CategoryDto dto,
             BindingResult result,
             RedirectAttributes redirAttrs) {
         // kiểm tra lỗi
@@ -77,7 +77,7 @@ public class CategoriesController {
         // account.setUsername(dto.getUsername());
         BeanUtils.copyProperties(dto, categories);
         categoryService.save(categories);
-        redirAttrs.addFlashAttribute("success", "Edit succsess");
+        redirAttrs.addFlashAttribute("success", "Edit success");
         return "redirect:/dashboard/categories"; // Return tên của View, model sẽ tự động pass vào view
     }
 
@@ -95,7 +95,7 @@ public class CategoriesController {
         BeanUtils.copyProperties(dto, copy);
         System.out.println("copy: " + copy);
         categoryService.save(copy);
-        redirectAttributes.addFlashAttribute("success", "Add succsess");
+        redirectAttributes.addFlashAttribute("success", "Add success");
         return "redirect:/dashboard/categories";
 
     }

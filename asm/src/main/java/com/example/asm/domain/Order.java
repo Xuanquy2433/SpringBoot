@@ -42,7 +42,7 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "username")
     private Account account;
-    int status;
+    String status;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

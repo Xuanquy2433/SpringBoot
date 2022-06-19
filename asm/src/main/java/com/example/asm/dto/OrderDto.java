@@ -26,7 +26,7 @@ public class OrderDto {
     @NotEmpty(message = "Không được để trông name")
     private String phone;
     // @NotEmpty(message = "Không được để trông name")
-    private int status;
+    private String status;
 
     // @NotEmpty(message = "Không được để trông name")
     private double total;

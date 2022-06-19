@@ -91,7 +91,7 @@ public class ProductsController {
             ex.printStackTrace();
             System.err.println(ex.getMessage());
         }
-        redirectAttributes.addFlashAttribute("success", "Add succsess");
+        redirectAttributes.addFlashAttribute("success", "Add success");
         return "redirect:/dashboard/products";
 
     }
@@ -113,9 +113,8 @@ public class ProductsController {
 
     // edit products post
     @PostMapping("products/edit")
-    public String update(Model model, @Valid @ModelAttribute("products") ProductMulDto dto,
-            RedirectAttributes redirectAttributes,
-            BindingResult result) {
+    public String update(Model model, @Valid @ModelAttribute("products") ProductMulDto dto, BindingResult result,
+            RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             // đẩy lại view và đưa ra thông báo lỗi
             System.out.println("CO EROR  " + result);
@@ -123,7 +122,7 @@ public class ProductsController {
         }
 
         String fileName = StringUtils.cleanPath(dto.getImage().getOriginalFilename());
-        
+
         Category category = new Category();
         category.setCategoryId(dto.getCategory());
 
@@ -131,9 +130,9 @@ public class ProductsController {
         BeanUtils.copyProperties(dto, copy);
         copy.setCategory(category);
         copy.setImage(fileName);
-        
-        System.err.println("idddddddddddddddddđ  : " + copy.getCategory() );
-        System.err.println("idddddddddddddddddđ  : " + dto.getCategory() );
+
+        System.err.println("idddddddddddddddddđ  : " + copy.getCategory());
+        System.err.println("idddddddddddddddddđ  : " + dto.getCategory());
 
         System.err.println("copy product : " + copy);
         productService.save(copy);
@@ -143,7 +142,7 @@ public class ProductsController {
             ex.printStackTrace();
             System.err.println(ex.getMessage());
         }
-        redirectAttributes.addFlashAttribute("success", "Update succsess");
+        redirectAttributes.addFlashAttribute("success", "Update success");
         return "redirect:/dashboard/products";
     }
 

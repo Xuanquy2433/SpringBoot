@@ -51,6 +51,9 @@ public class CartController {
     OrderDetailService orderDetailService;
 
     @Autowired
+    private HttpSession session;
+
+    @Autowired
     MailService mailService;
 
     String nameProduct = "";
@@ -86,7 +89,7 @@ public class CartController {
         order.setAccount(account);
         CartDto cart = (CartDto) httpSession.getAttribute("cart");
         order.setTotal(cart.total());
-        order.setStatus(1);
+        order.setStatus("Pending");
         Order orderCreated = orderService.save(order);
         for (ItemDto item : cart.getCarts()) {
             OrderDetail orderDetail = new OrderDetail();
@@ -101,13 +104,8 @@ public class CartController {
 
             orderDetail.setTotal(item.getPrice() * item.getSoLuong());
 
-            String status = String.valueOf(order.getStatus());
-            if (status.equals("1")) {
-                status = "Completed";
-
-            } else {
-                status = "Pending";
-            }
+            // String status = String.valueOf(order.getStatus());
+           
 
             Locale localeVN = new Locale("vi", "VN");
             NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
@@ -167,7 +165,7 @@ public class CartController {
                     + "                <td style=\" padding: 6px 12px;\n"
                     + "                display: table-cell\">  " + orderDetail.getQuantity() + "  </td>\n"
                     + "                <td style=\" padding: 6px 12px;\n"
-                    + "                display: table-cell\">  " + status + "  </td>\n"
+                    + "                display: table-cell\">  " + order.getStatus() + "  </td>\n"
                     + "                <td style=\" padding: 6px 12px;\n"
                     + "                display: table-cell\">  " + money + "  </td>\n"
                     + "                <td style=\" padding: 6px 12px;\n"

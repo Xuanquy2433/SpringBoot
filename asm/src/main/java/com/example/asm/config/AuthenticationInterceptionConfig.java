@@ -18,7 +18,10 @@ public class AuthenticationInterceptionConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminAuthenticationInterceptor)
-                .addPathPatterns("/dashboard/**");
+                .addPathPatterns("/dashboard/*", "/cart/checkout/**","/checkout/**","/dashboard/orders/detail/*","/dashboard/accounts/**",
+                "/dashboard/categories/**","/dashboard/products/create/**", "/dashboard/products/editAcc/**", "/dashboard/orders/edit/**"
+                );
+                
     }
 
     // public void addViewControllers(ViewControllerRegistry registry) {
