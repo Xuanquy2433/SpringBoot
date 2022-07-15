@@ -50,7 +50,7 @@ public class MailServiceImp implements MailService {
     // custom sendmail
 
     private static final String senderEmail = "quylxpk01793@fpt.edu.vn";// change with your sender email
-    private static final String senderPassword = "Acclone@734";// change with your sender password
+    private static final String senderPassword = "";// change with your sender password
 
     public void sendAsHtml(String to, String title, String html) throws MessagingException {
         System.out.println("Sending email to " + to);
