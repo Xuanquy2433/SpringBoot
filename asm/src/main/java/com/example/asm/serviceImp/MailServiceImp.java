@@ -49,7 +49,7 @@ public class MailServiceImp implements MailService {
 
     // custom sendmail
 
-    private static final String senderEmail = "quylxpk01793@fpt.edu.vn";// change with your sender email
+    private static final String senderEmail = "";// change with your sender email
     private static final String senderPassword = "";// change with your sender password
 
     public void sendAsHtml(String to, String title, String html) throws MessagingException {
